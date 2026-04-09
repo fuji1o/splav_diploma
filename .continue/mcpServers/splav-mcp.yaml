@@ -1,0 +1,7 @@
+name: Splav MCP Server
+version: 0.0.1
+schema: v1
+mcpServers:
+  - name: splavMCP
+    type: streamable-http
+    url: http://127.0.0.1:3000/mcp
