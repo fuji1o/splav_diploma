@@ -1,0 +1,1137 @@
+[
+    {
+        "type": "text",
+        "text": "(19) RU (11) 2 410 457(13) C1 ",
+        "text_level": 1,
+        "bbox": [
+            468,
+            55,
+            850,
+            81
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(51) МПК C22C 19/05 (2006.01) ",
+        "bbox": [
+            467,
+            86,
+            645,
+            114
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "ФЕДЕРАЛЬНАЯ СЛУЖБА ПО ИНТЕЛЛЕКТУАЛЬНОЙ СОБСТВЕННОСТИ, ПАТЕНТАМ И ТОВАРНЫМ ЗНАКАМ ",
+        "bbox": [
+            114,
+            181,
+            463,
+            220
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(12) ОПИСАНИЕ ИЗОБРЕТЕНИЯ К ПАТЕНТУ ",
+        "text_level": 1,
+        "bbox": [
+            126,
+            232,
+            603,
+            249
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(21)(22) Заявка: 2009139039/02, 23.10.2009 (24) Дата начала отсчета срока действия патента: 23.10.2009 ",
+        "bbox": [
+            127,
+            261,
+            455,
+            275
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            127,
+            286,
+            499,
+            314
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Приоритет(ы): ",
+        "bbox": [
+            129,
+            327,
+            240,
+            339
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(22) Дата подачи заявки: 23.10.2009 (45) Опубликовано: 27.01.2011 Бюл. № 3 ",
+        "bbox": [
+            131,
+            342,
+            398,
+            355
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            129,
+            365,
+            435,
+            380
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(56) Список документов, цитированных в отчете о   \nпоиске: EP 166618 A1, 07.06.2006. RU 2257420 C1, 27.07.2005. RU 2294393 C1, 27.02.2007. JP 10- 195564 A, 28.07.1998. US 2005009239 A1, 05.05.2005. ",
+        "bbox": [
+            127,
+            391,
+            502,
+            465
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Адрес для переписки: 121596, Москва, ул. Горбунова, 2, ОАО \"ВИЛС\" ",
+        "bbox": [
+            129,
+            477,
+            468,
+            520
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(72) Автор(ы): Гарибов Генрих Саркисович (RU), Гриц Нина Михайловна (RU), Иноземцев Александр Александрович (RU), Востриков Алексей Владимирович (RU), Федоренко Елизавета Александровна (RU), Андрейченко Игорь Леонардович (RU), Зубарев Геннадий Иванович (RU), Карягин Дмитрий Андреевич (RU) ",
+        "bbox": [
+            529,
+            262,
+            900,
+            395
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(73) Патентообладатель(и): Открытое акционерное общество \"Всероссийский институт легких сплавов\" (ОАО \"ВИЛС\") (RU) ",
+        "bbox": [
+            529,
+            406,
+            884,
+            466
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(54) ЖАРОПРОЧНЫЙ ПОРОШКОВЫЙ СПЛАВ НА ОСНОВЕ НИКЕЛЯ ",
+        "text_level": 1,
+        "bbox": [
+            127,
+            539,
+            712,
+            555
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(57) Реферат: ",
+        "bbox": [
+            129,
+            560,
+            226,
+            573
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Предлагаемое изобретение относится к области металлургии, в частности к жаропрочным сплавам на основе никеля, предназначенным для тяжелонагруженных деталей, работающих при повышенных температурах в газотурбинных двигателях. Предложен жаропрочный порошковый сплав на основе никеля, содержащий, мас. $\\%$ : углерод 0,06-0,13, хром 8,0-12,0, кобальт 14,0- 16,0, вольфрам 5,4-7,0, молибден 2,0-3,5, титан 3,0-4,5, алюминий 3,0-4,5, ниобий 1,5-2,5, тантал 0,5-4,0, гафний 0,05-0,5, рений 0,2-0,7, бор 0,005-0,05, цирконий 0,001-0,05, магний 0,001-0,05, железо 0,01-1,0, марганец 0,001-0,5, кремний 0,001-0,5, никель - остальное. Сплав характеризуется высокими показателями прочности, ползучести и пониженной скоростью распространения усталостных трещин при рабочих температурах. 1 табл. ",
+        "bbox": [
+            129,
+            576,
+            490,
+            724
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            534,
+            559,
+            895,
+            709
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "—Úð.: 1 ",
+        "bbox": [
+            489,
+            922,
+            531,
+            932
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            58,
+            543,
+            87,
+            800
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            929,
+            336,
+            954,
+            591
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            221,
+            78,
+            337,
+            175
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "РОССИЙСКАЯ ФЕДЕРАЦИЯ ",
+        "bbox": [
+            176,
+            54,
+            389,
+            67
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(19) RU (11) 2 410 457(13) C1 ",
+        "text_level": 1,
+        "bbox": [
+            467,
+            55,
+            850,
+            83
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(51) Int. Cl. C22C 19/05 (2006.01) ",
+        "bbox": [
+            467,
+            86,
+            647,
+            114
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "FEDERAL SERVICEFOR INTELLECTUAL PROPERTY,PATENTS AND TRADEMARKS",
+        "bbox": [
+            174,
+            182,
+            405,
+            220
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(12) ABSTRACT OF INVENTION ",
+        "text_level": 1,
+        "bbox": [
+            131,
+            232,
+            433,
+            249
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(21)(22) Application: 2009139039/02, 23.10.2009 (24) Effective date for property rights: 23.10.2009 ",
+        "bbox": [
+            129,
+            261,
+            482,
+            275
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            131,
+            286,
+            386,
+            314
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Priority: ",
+        "bbox": [
+            129,
+            326,
+            186,
+            339
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(22) Date of filing: 23.10.2009 (45) Date of publication: 27.01.2011 Bull. 3 ",
+        "bbox": [
+            129,
+            342,
+            339,
+            355
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            132,
+            365,
+            431,
+            380
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Mail address: 121596, Moskva, ul. Gorbunova, 2, OAO \"VILS\" ",
+        "bbox": [
+            129,
+            391,
+            504,
+            420
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(72) Inventor(s): Garibov Genrikh Sarkisovich (RU), Grits Nina Mikhajlovna (RU), Inozemtsev Aleksandr Aleksandrovich (RU), Vostrikov Aleksej Vladimirovich (RU), Fedorenko Elizaveta Aleksandrovna (RU), Andrejchenko Igor' Leonardovich (RU), Zubarev Gennadij Ivanovich (RU), Karjagin Dmitrij Andreevich (RU) ",
+        "bbox": [
+            527,
+            261,
+            877,
+            395
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(73) Proprietor(s): Otkrytoe aktsionernoe obshchestvo \"Vserossijskij institut legkikh splavov\" (OAO \"VILS\") (RU) ",
+        "bbox": [
+            529,
+            403,
+            905,
+            451
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(54) REFRACTORY POWDER NICKEL-BASED ALLOY ",
+        "text_level": 1,
+        "bbox": [
+            129,
+            471,
+            537,
+            484
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(57) Abstract: ",
+        "bbox": [
+            129,
+            490,
+            221,
+            503
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "FIELD: metallurgy. ",
+        "bbox": [
+            152,
+            505,
+            285,
+            519
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "SUBSTANCE: invention relates to metallurgy, particularly, to refractory nickel-base alloys intended for critically-loaded parts operated at increased temperatures in gas turbine engines. Proposed alloy comprises the following components in wt $\\%$ : carbon - 0.06-0.13, chromium - 8.0-12.0, cobalt - 14.0-16.0, tungsten - 5.4-7.0, molybdenum - 2.0-3.5, titanium - 3.0-4.5, aluminium - 3.0-4.5, niobium - 1.5-2.5, tantalum - 0.5-4.0, hafnium - 0.05- 0.5, rhenium - 0.2-0.7, boron - 0.005-0.05, zirconium - 0.001-0.05, magnesium - 0.001-0.05, iron - 0.01- 1.0, manganese - 0.001-0.5, silicon - 0.001-0.5, nickel making the rest. ",
+        "bbox": [
+            127,
+            520,
+            490,
+            638
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            534,
+            490,
+            895,
+            562
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "EFFECT: proposed alloy features high strength, creep flow and reduced crack propagation rate at operating temperatures. ",
+        "bbox": [
+            534,
+            565,
+            895,
+            609
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "1 tbl, 1 ex",
+        "bbox": [
+            559,
+            610,
+            626,
+            623
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "discarded",
+        "text": "—Úð.: 2 ",
+        "bbox": [
+            489,
+            922,
+            531,
+            932
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "discarded",
+        "text": "$\\Leftrightarrow$ ",
+        "bbox": [
+            58,
+            545,
+            87,
+            801
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            927,
+            332,
+            956,
+            597
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            221,
+            78,
+            337,
+            175
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "discarded",
+        "text": "RUSSIAN FEDERATION ",
+        "bbox": [
+            201,
+            55,
+            364,
+            67
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "RU 2 410 457 C1 ",
+        "text_level": 1,
+        "bbox": [
+            455,
+            21,
+            591,
+            35
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Предлагаемое изобретение относится к области металлургии, в частности к порошковой металлургии жаропрочных сплавов на основе никеля, предназначенных для тяжелонагруженных деталей, работающих при повышенных температурах в газотурбинных двигателях (ГТД). ",
+        "bbox": [
+            127,
+            47,
+            892,
+            116
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "5 ",
+        "bbox": [
+            95,
+            115,
+            107,
+            124
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Известен жаропрочный никелевый сплав, предназначенный для деталей газовых турбин, состава $( \\mathbf { B } \\ \\mathbf { M a c } . \\% )$ ): ",
+        "bbox": [
+            119,
+            118,
+            872,
+            152
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Углерод - 0,02-0,10   \nХром - 8,0-10,0   \n10 Вольфрам - 5,2-5,9   \nМолибден - 3,6-4,3   \nТитан - 1,5-3,4   \nАлюминий - 4,3-5,3   \nНиобий - 1,0-2,0   \n15 Гафний - 0,1-0,4   \nБор - 0,001-0,05   \nЦирконий - 0,001-0,05   \nМагний - 0,001-0,08   \nЦерий - 0,001-0,06   \n20 Никель - остальное ",
+        "bbox": [
+            94,
+            166,
+            326,
+            363
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "(Патент РФ 2131943, C22C 19/05, 1999 год). ",
+        "bbox": [
+            152,
+            375,
+            536,
+            390
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Недостатками этого сплава являются низкие характеристики прочности, жаропрочности и чувствительность сплава к концентраторам напряжений при рабочих температурах, что существенно снижает ресурс работы изделия. ",
+        "bbox": [
+            115,
+            395,
+            835,
+            445
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Известен жаропрочный сплав на основе никеля, состава (в масс. $\\%$ ): ",
+        "bbox": [
+            152,
+            447,
+            756,
+            461
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Углерод - 0,02-0,10 Хром - 9,0-11, 0 Кобальт - 14,0-16,0   \n30 Вольфрам - более 5,5-6,5 Молибден - 3,0-3,8 Титан - 4,0-4,2 Алюминий - 3,4-4,2 Ниобий - 1,5-2,2   \n35 Гафний - 0,1-0,2 Бор - 0,005-0,05 Цирконий - 0,001 - не более 0,005 Магний - 0,001-0,05 Никель - остальное ",
+        "bbox": [
+            94,
+            476,
+            386,
+            669
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "40 ",
+        "bbox": [
+            95,
+            674,
+            112,
+            684
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "(патент РФ 2257420, C22C 19/05, 2005 год) - прототип. ",
+        "bbox": [
+            149,
+            685,
+            631,
+            701
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "45 ",
+        "bbox": [
+            95,
+            755,
+            112,
+            764
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Недостатками этого сплава являются низкие характеристики прочности в 650°C) и ползучести $\\left( \\sigma _ { 0 , 2 / 1 0 0 } \\right)$ , и высокая скорость распространения усталостной трещины (СРТУ) при рабочих температурах. ",
+        "bbox": [
+            127,
+            706,
+            894,
+            758
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Предлагается сплав на основе никеля, содержащий компоненты в следующем соотношении $( \\mathbf { B } \\ \\mathbf { M a c } . \\% )$ ): ",
+        "bbox": [
+            121,
+            761,
+            845,
+            793
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "50 ",
+        "bbox": [
+            95,
+            834,
+            112,
+            844
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Углерод - 0,06-0,13   \nХром - 8,0-12,0   \nКобальт - 14,0-16,0   \nВольфрам - 5,4-7,0   \nМолибден - 2,0-3,5   \nТитан - 3,0-4,5   \nАлюминий - 3,0-4,5   \nНиобий - 1,5-2,5   \nТантал - 0,5-4,0   \nГафний - 0,05-0,5   \nРений - 0,2-0,7   \nБор - 0,005-0,05   \nЦирконий - 0,001-0,05   \nМагний - 0,001-0,05   \nЖелезо - 0,01-1,0   \nМарганец - 0,001-0,5   \nКремний - 0,001-0,5   \nНикель - остальное. ",
+        "bbox": [
+            126,
+            807,
+            421,
+            896
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "discarded",
+        "text": "—Úð.: 3 ",
+        "bbox": [
+            489,
+            921,
+            532,
+            932
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            127,
+            46,
+            433,
+            225
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            97,
+            275,
+            112,
+            285
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Предлагаемый сплав отличается от прототипа тем, что он дополнительно содержит тантал, рений, марганец, кремний и железо при следующем соотношении компонентов в мас. $\\%$ : ",
+        "bbox": [
+            126,
+            241,
+            904,
+            292
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "table",
+        "img_path": "images/71f682720fc7a96a970f3783e2fb31baf5e842549b8c96aeae01c256412a97f5.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td></td><td>yrneon</td><td>- 0,06-0,13</td></tr><tr><td></td><td>XpoM</td><td>- 8,0-12,0</td></tr><tr><td>20</td><td>Ko6aJbT</td><td>- 14,0-16,0</td></tr><tr><td></td><td>BoJbφpam</td><td>-5,4-7,0</td></tr><tr><td></td><td>MosnoneH</td><td>-2,0-3,5</td></tr><tr><td></td><td>TnTaH</td><td>-3,0-4,5</td></tr><tr><td></td><td>AJIOMMHNH</td><td>-3,0-4,5</td></tr><tr><td></td><td>Hnoōnǎ</td><td>-1,5-2,5</td></tr><tr><td>25</td><td>TaHTaJ</td><td>- 0,5-4,0</td></tr><tr><td></td><td>TaφHn </td><td>- 0,05-0,5</td></tr><tr><td>bop</td><td>PeHnǔ</td><td>- 0,2-0,7</td></tr><tr><td></td><td></td><td>-0,005-0,05</td></tr><tr><td></td><td>LnpkoHnn</td><td>-0,001-0,05</td></tr><tr><td>30</td><td>MarHnǔ</td><td>-0,001-0,05</td></tr><tr><td></td><td>KeJe30</td><td>- 0,01-1,0</td></tr><tr><td></td><td>MapraHen</td><td>-0,001-0,5</td></tr><tr><td>KpemHnǎ</td><td></td><td>- 0,001-0,5</td></tr><tr><td>HukeJIb</td><td></td><td>- OcTaJIbHoe.</td></tr></table>",
+        "bbox": [
+            94,
+            306,
+            433,
+            576
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "35 Технический результат - повышение характеристик прочности, ползучести и снижение скорости распространения усталостной трещины при рабочих температурах и, как следствие, повышение ресурса работы и надежности изделия из предлагаемого сплава. ",
+        "bbox": [
+            95,
+            591,
+            900,
+            659
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "40 ",
+        "bbox": [
+            95,
+            675,
+            112,
+            684
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Это достигается тем, что предлагаемый состав порошкового сплава обеспечивает одновременное увеличение прочности границ и тела зерна за счет карбидного упрочнения, упрочнения $\\gamma$ -матрицы и $\\gamma ^ { \\prime }$ -фазы, а также одновременно позволяет исключить образование внутренних пор в процессе распыления порошка и, в результате, получать плотные беспористые заготовки, прессуемые из него. ",
+        "bbox": [
+            126,
+            662,
+            889,
+            748
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "45 Пример ",
+        "bbox": [
+            95,
+            750,
+            226,
+            767
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Методом порошковой металлургии был изготовлен и опробован сплав предлагаемого состава ",
+        "bbox": [
+            129,
+            768,
+            793,
+            801
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Углерод - 0,09   \n50 Хром - 10,0   \nКобальт - 15,0   \nВольфрам - 6,0   \nМолибден - 2,5   \nТитан - 3,8 ",
+        "bbox": [
+            94,
+            814,
+            393,
+            903
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "discarded",
+        "text": "—Úð.: 4 ",
+        "bbox": [
+            489,
+            921,
+            532,
+            932
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "discarded",
+        "text": "RU 2 410 457 C1 ",
+        "bbox": [
+            455,
+            21,
+            591,
+            35
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "RU 2 410 457 C1 ",
+        "text_level": 1,
+        "bbox": [
+            455,
+            21,
+            591,
+            35
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "table",
+        "img_path": "images/e0239fb18a5bffe828e61e2b8aafc62f97713eaf60913efab68e9e370b8d228e.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>AJIIOMNHNǎ</td><td>-3,8</td></tr><tr><td>Hnoōnǔ</td><td>- 1,8</td></tr><tr><td>TaHTaJI</td><td>-2,0</td></tr><tr><td>TaφHnǔ</td><td>-0,2</td></tr><tr><td>PeHnǔ</td><td>-0,5</td></tr><tr><td>bop</td><td>-0,02</td></tr><tr><td>LnpkoHnǎ</td><td>-0,02</td></tr><tr><td>MarHnǎ</td><td>-0,03</td></tr><tr><td>KeJe30</td><td>-0,5</td></tr><tr><td>MapraHe</td><td>-0,3</td></tr><tr><td>KpemHnǎ</td><td>-0,2</td></tr><tr><td>HnKeJIb</td><td>- OcTaJIbHoe.</td></tr></table>",
+        "bbox": [
+            109,
+            46,
+            433,
+            225
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Также был получен сплав по составу - прототипу. ",
+        "bbox": [
+            151,
+            241,
+            600,
+            256
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Механические свойства при рабочей температуре $6 5 0 ^ { \\circ } \\mathrm { C }$ предлагаемого сплава и 15 сплава-прототипа определены по стандартным методикам испытания и представлены в таблице. ",
+        "bbox": [
+            95,
+            260,
+            902,
+            309
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "20 ",
+        "bbox": [
+            95,
+            355,
+            112,
+            364
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "table",
+        "img_path": "images/749c7a03aff5b281649ef5e9aa40209048dc561f6526093ce5a61769c8bb3185.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td rowspan=1 colspan=7>Ta6Jnua</td></tr><tr><td rowspan=1 colspan=7>650°℃</td></tr><tr><td rowspan=2 colspan=1></td><td rowspan=1 colspan=1>IpenenpOuHOcTn σB</td><td rowspan=1 colspan=1>IpenenTeKyuecTn 00,2</td><td rowspan=1 colspan=1>OTHocnTeJbHOey nHeHne δ</td><td rowspan=1 colspan=1>OTHocnTeJbHoecyxeHneψ</td><td rowspan=1 colspan=1>Ipenen nonsyuecrn00,2/100</td><td rowspan=1 colspan=1>CPTy ∆K=44 MIla.·M0,5</td></tr><tr><td rowspan=1 colspan=2>MIIa</td><td rowspan=1 colspan=2>%</td><td rowspan=1 colspan=1>MIIa</td><td rowspan=1 colspan=1>MM/KJ</td></tr><tr><td rowspan=1 colspan=1>araemblǐ</td><td rowspan=1 colspan=1>1635</td><td rowspan=1 colspan=1>1189</td><td rowspan=1 colspan=1>12,6</td><td rowspan=1 colspan=1>16,3</td><td rowspan=1 colspan=1>998</td><td rowspan=1 colspan=1>1,5.10-4</td></tr><tr><td rowspan=1 colspan=1>poT0Tmn</td><td rowspan=1 colspan=1>1420</td><td rowspan=1 colspan=1>1088</td><td rowspan=1 colspan=1>7.5</td><td rowspan=1 colspan=1>7.8</td><td rowspan=1 colspan=1>830</td><td rowspan=1 colspan=1>8,2.10-4</td></tr></table>",
+        "bbox": [
+            127,
+            320,
+            909,
+            461
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Из таблицы видно, что сплав предлагаемого состава при рабочей температуре $6 5 0 \\mathrm { { } ^ { \\circ } C }$ превосходит прототип по характеристикам прочности: на $1 3 \\mathrm { - } 1 5 \\%$ по пределу 30 прочности; на $8 \\%$ по пределу текучести, а также на $1 8 - 2 0 \\%$ - по пределу ползучести. При этом предлагаемый сплав имеет скорость распространения усталостной трещины в 5-6 раза меньше, чем прототип. ",
+        "bbox": [
+            97,
+            477,
+            902,
+            564
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Таким образом, применение предлагаемого сплава для изготовления валов, дисков и др. деталей ГТД позволит повысить ресурс работы двигателя в 1,3-1,5 раза и увеличить его эксплуатационную надежность на $20 \\%$ . ",
+        "bbox": [
+            122,
+            566,
+            897,
+            616
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Формула изобретения ",
+        "text_level": 1,
+        "bbox": [
+            418,
+            636,
+            620,
+            652
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Жаропрочный порошковый сплав на основе никеля, содержащий углерод, хром, 40 кобальт, вольфрам, молибден, титан, алюминий, ниобий, гафний, бор, цирконий и магний, отличающийся тем, что он дополнительно содержит тантал, рений, железо, марганец и кремний при следующем соотношении компонентов, мас. $\\%$ : ",
+        "bbox": [
+            95,
+            654,
+            878,
+            723
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "table",
+        "img_path": "images/d494bc8c7e516fba025a45f2fd85838b2dc2e1aebe67537b31a02a9846c94f4f.jpg",
+        "table_caption": [
+            "—Úð.: 5 "
+        ],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>yrepon</td><td>0,06-0,13</td></tr><tr><td>Xpom</td><td>8,0-12,0</td></tr><tr><td>Ko6aJIbT</td><td>14,0-16,0</td></tr><tr><td>Bobφpam</td><td>5,4-7,0</td></tr><tr><td>MononeH</td><td>2,0-3,5</td></tr><tr><td>TuTaH</td><td>3,0-4,5</td></tr><tr><td>AJIIOMMHNX</td><td>3,0-4,5</td></tr><tr><td>Hnoōuǎ</td><td>1,5-2,5</td></tr><tr><td>TaHTaJI</td><td>0,5-4,0</td></tr><tr><td>ΓaφHni</td><td>0,05-0,5</td></tr><tr><td>PeHnǎ</td><td>0,2-0,7</td></tr></table>",
+        "bbox": [
+            453,
+            736,
+            586,
+            901
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "discarded",
+        "text": "50 ",
+        "bbox": [
+            95,
+            834,
+            112,
+            844
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "discarded",
+        "text": "45 ",
+        "bbox": [
+            95,
+            755,
+            112,
+            764
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "RU 2 410 457 C1 ",
+        "text_level": 1,
+        "bbox": [
+            455,
+            21,
+            591,
+            35
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Бор 0,005-0,05   \nЦирконий 0,001-0,05   \nМагний 0,001-0,05   \nЖелезо 0,01-1,0   \nМарганец 0,001-0,5   \nКремний 0,001-0,5   \nНикель остальное ",
+        "bbox": [
+            455,
+            47,
+            584,
+            150
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "10 ",
+        "bbox": [
+            95,
+            193,
+            114,
+            204
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "15 ",
+        "bbox": [
+            95,
+            274,
+            112,
+            285
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "20 ",
+        "bbox": [
+            95,
+            353,
+            114,
+            364
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "25 ",
+        "bbox": [
+            95,
+            434,
+            112,
+            445
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "30 ",
+        "bbox": [
+            95,
+            514,
+            114,
+            524
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "35 ",
+        "bbox": [
+            95,
+            593,
+            114,
+            605
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "40 ",
+        "bbox": [
+            95,
+            674,
+            114,
+            685
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "45 ",
+        "bbox": [
+            95,
+            755,
+            112,
+            764
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "discarded",
+        "text": "—Úð.: 6 ",
+        "bbox": [
+            489,
+            922,
+            531,
+            932
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "discarded",
+        "text": "50 ",
+        "bbox": [
+            95,
+            834,
+            112,
+            844
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "discarded",
+        "text": "5 ",
+        "bbox": [
+            95,
+            115,
+            107,
+            124
+        ],
+        "page_idx": 5
+    }
+]

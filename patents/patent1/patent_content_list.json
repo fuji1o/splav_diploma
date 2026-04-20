@@ -1,0 +1,2449 @@
+[
+    {
+        "type": "text",
+        "text": "(19) United States (12) Patent Application Publication (1o) Pub. No.: US 2019/0040501 A1 GEHRMANN et al. (43) Pub. Date: Feb. 7, 2019 ",
+        "text_level": 1,
+        "bbox": [
+            124,
+            63,
+            861,
+            126
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(54) NICKEL-COBALT ALLOY ",
+        "text_level": 1,
+        "bbox": [
+            124,
+            148,
+            344,
+            161
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(71) Applicant: VDM Metals International GmbH, Werdoh1 (DE) ",
+        "bbox": [
+            122,
+            172,
+            455,
+            199
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(72) Inventors: Budo GEHRMANN, Plettenberg (DE); Jutta KLOEWER, Duesseldorf (DE); Tatiana FEDOROVA, Schwuelper (DE); Joachim ROESLER, Braunscheid (DE) ",
+        "bbox": [
+            124,
+            208,
+            473,
+            272
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(73) Assignee: VDM Metals International GmbH, Werdohl (DE) ",
+        "bbox": [
+            124,
+            287,
+            455,
+            313
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(21) App1. No.: 16/148,530 (22) Filed: Oct. 1, 2018 ",
+        "bbox": [
+            125,
+            329,
+            299,
+            342
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            124,
+            357,
+            310,
+            369
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Related U.S. Application Data ",
+        "text_level": 1,
+        "bbox": [
+            204,
+            385,
+            398,
+            398
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(62) Division of application No. 14/762,088, filed on Jul. 20, 2015, fled as application No. PCT/DE2014/ 000053 on Feb. 13, 2014. ",
+        "bbox": [
+            124,
+            404,
+            478,
+            441
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Foreign Application Priority Data ",
+        "text_level": 1,
+        "bbox": [
+            212,
+            454,
+            429,
+            467
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Feb. 14, 2013 (DE) 10 2013 002 483.8 ",
+        "bbox": [
+            137,
+            477,
+            478,
+            489
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Publication Classification ",
+        "text_level": 1,
+        "bbox": [
+            601,
+            148,
+            764,
+            161
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(51) Int. Cl. C22C 19/05 (2006.01) C22F1/10 (2006.01) C22F1/08 (2006.01) C22F1/00 (2006.01) B23K 35/30 (2006.01) C22C 30/00 (2006.01) ",
+        "bbox": [
+            504,
+            166,
+            743,
+            256
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(52) U.S. Cl. CPC C22C 19/056 (2013.01); C22F 1/10 (2013.01); C22F 1/08 (2013.01); C22C 30/00 (2013.01); B23K 35/3033 (2013.01); C22C 19/055 (2013.01); B23K 35/304 (2013.01); C22F 1/00 (2013.01) ",
+        "bbox": [
+            506,
+            257,
+            861,
+            332
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "ABSTRACT ",
+        "text_level": 1,
+        "bbox": [
+            642,
+            343,
+            723,
+            356
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "A Ni—Co alloy includes 30 to 65 wt $\\%$ Ni, ${ > } 0$ to max. 10 wt $\\%$ Fe, $^ { > 1 2 }$ to $< 3 5$ wt $\\%$ Co, 13 to 23 wt $\\%$ Cr, 1 to 6 wt $\\%$ Mo, 4 to 6 wt $\\%$ $\\mathrm { N b } { + } \\mathrm { T a }$ , ${ > } 0$ to $< 3$ wt $\\%$ Al, ${ > } 0$ to $^ { < 2 }$ wt $\\%$ Ti, ${ > } 0$ to max. 0.1 wt $\\%$ C, ${ > } 0$ to max. 0.03 wt $\\% \\mathrm { ~ P ~ } { > } 0$ to max. 0.01 wt $\\%$ Mg, ${ > } 0$ to max. 0.02 wt $\\%$ B, ${ > } 0$ to max. 0.1 wt $\\%$ Zr, which fulfils the following requirements and criteria: a) $9 0 0 ^ { \\circ } \\mathrm { ~ C . { < } \\gamma ^ { \\prime } }$ solvus temperature ${ < } 1 0 3 0 ^ { \\circ }$ C. with 3 at $\\% { < } \\mathrm { A l + T i }$ (at $\\% ) < 5 . 6$ at $\\%$ and 11.5 at $\\% { < } \\mathrm { C o } { < } 3 5$ at $\\%$ ; b) stable microstructure after $5 0 0 \\mathrm { h }$ of ageing annealing at $8 0 0 ^ { \\circ }$ C. with a ratio $_ \\mathrm { A l / T i > 5 }$ (on the basis of the contents in at $\\%$ ). ",
+        "bbox": [
+            504,
+            362,
+            861,
+            488
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "US 20190040501A1 ",
+        "bbox": [
+            401,
+            17,
+            862,
+            60
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "image",
+        "img_path": "images/92b8e3b311489705d2f8f58069495231e2a424c79c21b740507df7b70b4ff763.jpg",
+        "image_caption": [
+            "Fig. 1 "
+        ],
+        "image_footnote": [],
+        "bbox": [
+            165,
+            390,
+            826,
+            722
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 1 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            122,
+            65,
+            857,
+            85
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "image",
+        "img_path": "images/f11f86d3294943a696f4e207d1248c7911f300a200004a7f2cf45ad24ff31158.jpg",
+        "image_caption": [
+            "Fig. 2 "
+        ],
+        "image_footnote": [],
+        "bbox": [
+            160,
+            401,
+            816,
+            729
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 2 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            122,
+            65,
+            857,
+            85
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "image",
+        "img_path": "images/7d5005935b6b99d9cfc1634894071a5ee74840cf2f6f2ddbeadeb2e899b7cd7e.jpg",
+        "image_caption": [
+            "Fig.3 "
+        ],
+        "image_footnote": [],
+        "bbox": [
+            178,
+            410,
+            818,
+            727
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 3 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            122,
+            65,
+            857,
+            85
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "image",
+        "img_path": "images/c25103e2e8f24291c873e5c4ca310af60dc5936a302e80f5f6766bda24385b8c.jpg",
+        "image_caption": [
+            "Fig.4 "
+        ],
+        "image_footnote": [],
+        "bbox": [
+            173,
+            398,
+            816,
+            726
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 4 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            122,
+            65,
+            857,
+            85
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "image",
+        "img_path": "images/e4c94cf758beda16372280e7ebf9498d20e75c107ea49b5e648b111df89f7720.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            230,
+            157,
+            807,
+            869
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 5 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            122,
+            66,
+            857,
+            84
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            166,
+            603,
+            196,
+            861
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            169,
+            356,
+            199,
+            527
+        ],
+        "page_idx": 5
+    },
+    {
+        "type": "image",
+        "img_path": "images/f6911d0b9f77d818215b7cf2ea494a65597486831882e8e3738c0057e986269c.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            232,
+            145,
+            823,
+            880
+        ],
+        "page_idx": 6
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 6 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            120,
+            66,
+            857,
+            84
+        ],
+        "page_idx": 6
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            173,
+            327,
+            200,
+            529
+        ],
+        "page_idx": 6
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            171,
+            607,
+            200,
+            876
+        ],
+        "page_idx": 6
+    },
+    {
+        "type": "image",
+        "img_path": "images/7efe4bb65bf94f4f48a07192e83b56ef5d7e5014ad970c8a2babc81eec37006c.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            232,
+            131,
+            816,
+            878
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 7 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            120,
+            66,
+            859,
+            84
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            169,
+            589,
+            199,
+            872
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            173,
+            344,
+            200,
+            526
+        ],
+        "page_idx": 7
+    },
+    {
+        "type": "image",
+        "img_path": "images/e01d7968dede8385252b399b86bb9cc35310d7648154ea8d0b01de1f770c4b20.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            243,
+            133,
+            836,
+            875
+        ],
+        "page_idx": 8
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 8 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            122,
+            66,
+            859,
+            84
+        ],
+        "page_idx": 8
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            181,
+            590,
+            209,
+            859
+        ],
+        "page_idx": 8
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            183,
+            316,
+            210,
+            515
+        ],
+        "page_idx": 8
+    },
+    {
+        "type": "image",
+        "img_path": "images/0e028fadf0047f2a228f821bf358d84c2e620a52c44fa3079baa8bd0021214b7.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            236,
+            140,
+            820,
+            876
+        ],
+        "page_idx": 9
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 9 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            122,
+            66,
+            859,
+            84
+        ],
+        "page_idx": 9
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            176,
+            590,
+            202,
+            866
+        ],
+        "page_idx": 9
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            178,
+            348,
+            205,
+            526
+        ],
+        "page_idx": 9
+    },
+    {
+        "type": "image",
+        "img_path": "images/c37b22fb0b9d119639585b74db607a292570b9fb6851264eff8801cb67628dae.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            250,
+            137,
+            838,
+            876
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 10 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            124,
+            66,
+            859,
+            84
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "discarded",
+        "text": "出",
+        "bbox": [
+            186,
+            306,
+            218,
+            883
+        ],
+        "page_idx": 10
+    },
+    {
+        "type": "image",
+        "img_path": "images/c214b55dee25b44525d7366b81d14c793e6aa212e313c830357d2a2201e12c9a.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            248,
+            147,
+            825,
+            875
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 11 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            122,
+            66,
+            857,
+            84
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            189,
+            352,
+            215,
+            526
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            186,
+            590,
+            215,
+            866
+        ],
+        "page_idx": 11
+    },
+    {
+        "type": "image",
+        "img_path": "images/c7c1abdc21a9f4d68be27547f61a13a790872fc0b9d0a71707abc8dc1f8846ae.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            232,
+            143,
+            825,
+            875
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 12 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            122,
+            66,
+            857,
+            84
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            176,
+            321,
+            202,
+            521
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "discarded",
+        "text": "正田",
+        "bbox": [
+            171,
+            587,
+            200,
+            863
+        ],
+        "page_idx": 12
+    },
+    {
+        "type": "image",
+        "img_path": "images/012c84335bb04fd35d1a0b2f1557ba964b163d41e4268a96ffe8f0131fec5d8b.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            235,
+            133,
+            825,
+            893
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 13 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            122,
+            66,
+            857,
+            84
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            174,
+            601,
+            200,
+            871
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            178,
+            353,
+            205,
+            530
+        ],
+        "page_idx": 13
+    },
+    {
+        "type": "image",
+        "img_path": "images/0d8c589f6e09a51e2f28aa9de50700c532722d72bb203faeae10e882c581d03b.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            236,
+            138,
+            823,
+            878
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 14 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            120,
+            66,
+            857,
+            84
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            176,
+            594,
+            204,
+            868
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "discarded",
+        "text": "",
+        "bbox": [
+            178,
+            321,
+            205,
+            526
+        ],
+        "page_idx": 14
+    },
+    {
+        "type": "image",
+        "img_path": "images/f1b265e772f2408da013c21820d7bd94f596ff23957d8bff49a578fd3e5e970a.jpg",
+        "image_caption": [
+            ""
+        ],
+        "image_footnote": [],
+        "bbox": [
+            214,
+            157,
+            761,
+            859
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 15 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            124,
+            66,
+            859,
+            84
+        ],
+        "page_idx": 15
+    },
+    {
+        "type": "image",
+        "img_path": "images/49e9efe825f19f5484311aab8a2c6fc1fb9808bd6986817159c2ac043a41ee59.jpg",
+        "image_caption": [],
+        "image_footnote": [],
+        "bbox": [
+            212,
+            159,
+            779,
+            876
+        ],
+        "page_idx": 16
+    },
+    {
+        "type": "discarded",
+        "text": "Patent Application Publication Feb. 7, 2019 Sheet 16 of 16 US 2019/0040501 A1 ",
+        "bbox": [
+            124,
+            66,
+            857,
+            84
+        ],
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "NICKEL-COBALT ALLOY ",
+        "text_level": 1,
+        "bbox": [
+            210,
+            133,
+            390,
+            146
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "CROSS REFERENCE TO RELATED APPLICATIONS ",
+        "text_level": 1,
+        "bbox": [
+            184,
+            157,
+            416,
+            183
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "[0001] This application is a divisional of and Applicant claims priority under 35 U.S.C. $\\ S \\ S \\ S 2 0$ and 121 of U.S. application Ser. No. 14/762,088 filed on Jul. 20, 2015, which application is a national stage application under 35 U.S.C. $\\ S$ 371 of PCT Application No. PCT/DE2014/000053 filed on Feb. 13, 2014, which claims priority under 35 U.S.C. $\\ S \\ S \\ S$ from German Patent Application No. 10 2013 002 483.8 fi led on Feb. 14, 2013, the disclosures of each of which are hereby incorporated by reference. A certified copy of priority German Patent Application No. 10 2013 002 483.8 is contained in parent U.S. application Ser. No. 14/762,088. The International Application under PCT article 21(2) was not published in English. ",
+        "bbox": [
+            124,
+            190,
+            478,
+            354
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "BACKGROUND OF THE INVENTION ",
+        "text_level": 1,
+        "bbox": [
+            179,
+            366,
+            424,
+            378
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "1. Field of the Invention ",
+        "text_level": 1,
+        "bbox": [
+            228,
+            391,
+            375,
+            404
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "[0002] The subject matter of the invention relates to a nickel-cobalt alloy. ",
+        "bbox": [
+            122,
+            410,
+            478,
+            435
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "2. Description of the Related Art ",
+        "text_level": 1,
+        "bbox": [
+            202,
+            446,
+            400,
+            460
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "[0003] An important metallic material for rotating disks in gas turbines is the nickel-base Alloy 718. The chemical composition of Alloy 718 is listed in Table 1 of the AMS 5662 standard. ",
+        "bbox": [
+            124,
+            467,
+            478,
+            517
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "[0004] The requirements applicable to the mechanical properties that Alloy 718 must have in accordance with the AMS 5662 standard are listed in Table 2. Furthermore, for use as a rotating disk in an aircraft turbine, an elongation of $< 0 . 2 \\%$ is required after a creep test at a temperature of $6 5 0 ^ { \\mathrm { o } }$ C. and a load of $5 5 0 ~ \\mathrm { M P a }$ after a loading time of $3 5 \\ \\mathrm { h }$ (or after $1 0 0 \\mathrm { h }$ in the case of even more stringent requirements), while high cycle numbers to failure are expected in the low cycle fatigue/LCF test. Depending on test condition, cycle numbers of several 10,000 cycles up to cycles of more than 100,000 are required, as specified on the basis of different disk designs. In accordance with the AMS 5662 standard, the mechanical requirements must be satisfi ed after a threestage annealing process— one hour of solution annealing at an annealing temperature between 940 and $1 0 0 0 ^ { \\circ }$ C.+precipitation hardening at $7 2 0 ^ { \\circ } ~ \\mathrm { C }$ . for $8 \\ \\mathrm { h } { + } 6 2 0 ^ { \\mathrm { o } } \\ \\mathrm { C }$ . for $^ { 8 \\mathrm { ~ h ~ } }$ ",
+        "bbox": [
+            124,
+            518,
+            478,
+            719
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "[0005] Essentially two precipitation phases are responsible for the high strength properties of nickel-base Alloy 718. They are on the one hand the γ\"-phase $\\mathrm { N i } _ { 3 } \\mathrm { N b }$ and on the other hand the $\\gamma ^ { \\prime }$ phase $\\mathrm { N i } _ { 3 } ( \\mathrm { A l } , \\mathrm { T i } )$ . A third important precipitation phase is the δ-phase, which limits Alloy 718 to a maximum temperature of $6 5 0 ^ { \\circ } ~ \\mathrm { C }$ , since above that temperature the metastable $\\gamma \"$ -phase is transformed to the stable δ-phase. As a consequence of this transformation, the material loses its creep-strength properties. In the course of the process of manufacture of Alloy 718 material from the remelted ingot to the semifinished form of a forged billet, however, the δ-phase plays an important role in achieving a very fine-grained homogeneous grain structure during the forging process. During forging heats in the range of the precipitation temperature of the δ-phase, small proportions at precipitates of δ-phase result in grain refinement. This fine grain of the billet microstructure is preserved or becomes even more fine-grained due to hot forming during the manufacture in particular of turbine disks, even though forging in this case takes place at a temperature below the δ-phase solution temperature. The very fine-grained microstructure is a prerequisite for very high cycle numbers to failure in the LCF test. Since the precipitation temperature of the $\\gamma ^ { \\dagger }$ -phase of Alloy 718 is very much lower than the δ-phase solution temperature of approximately $1 0 2 0 ^ { \\circ }$ C., Alloy 718 has a broad window of forming temperature, and so forging from ingot to billet or from billet to turbine disk is unproblematic as regards possible surface disruptions due to $\\gamma ^ { \\prime }$ -phase precipitates, which may occur during forging at very low temperatures. Thus Alloy 718 is very amenable to the hot-forming process. Nevertheless, one disadvantage is the relatively low application temperature of Alloy 718, up to $6 5 0 ^ { \\circ } \\mathrm { ~ C ~ }$ ",
+        "bbox": [
+            124,
+            720,
+            478,
+            948
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            506,
+            133,
+            859,
+            321
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "[0006] Another nickel alloy known as \"Waspaloy\" is characterized by good microstructural stability at higher temperatures, up to approximately $7 5 0 ^ { \\circ } \\mathrm { ~ C ~ }$ , and so its application temperature is approximately $1 0 0 \\mathrm { K }$ higher than that of Alloy 718. Waspaloy achieves its microstructural stability up to higher temperatures by higher alloying proportions of the elements Al and Ti. Herewith Waspaloy exhibits a high solution temperature of the $\\gamma ^ { \\dagger }$ -phase, which in turn permits a higher application temperature. The chemical composition of Waspaloy is listed in Table 3 in accordance with the AMS 5704 standard. ",
+        "bbox": [
+            506,
+            324,
+            859,
+            463
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "[0007] The requirements imposed on the mechanical properties that Waspaloy must achieve in accordance with the AMS 5704 standard are listed in Table 4. Furthermore, for use as a rotating disk in an aircraft turbine, an elongation of $< 0 . 2 \\%$ is required after a creep test at a test temperature and a test load after a loading time of $3 5 \\mathrm { ~ h ~ }$ (or after $1 0 0 \\mathrm { h }$ in the case of even more stringent requirements), while high cycle numbers to failure are expected in the low cycle fatigue/LCF test. In this connection, depending on test condition, cycle numbers of several 10,000 cycles up to cycles of more than 100,000 are required, as specifi ed on the basis of different disk designs. In accordance with the AMS 5704 standard, the mechanical requirements must be satisfied after a threestage annealing process——four hours of solution annealing at an annealing temperature between 996 and $1 0 3 8 ^ { \\circ }$ C $^ +$ stabilization annealing at $8 4 5 ^ { \\circ } \\mathrm { C }$ for $4 \\mathrm { { h + } }$ precipitation hardening at $7 6 0 ^ { \\circ } ~ \\mathrm { C }$ for 16 hours. ",
+        "bbox": [
+            504,
+            465,
+            861,
+            678
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "[0008] However, the high $\\gamma ^ { \\prime }$ solution temperature of approximately $1 0 3 5 ^ { \\circ } \\mathrm { ~ C ~ }$ is also the cause of the poor hot formability of Waspaloy. At a surface temperature of approximately $9 8 0 ^ { \\mathrm { o } }$ C., deep discontinuities caused by $\\gamma ^ { \\dagger }$ -phase precipitates may develop at the surface of the forged pieces during processes of forging from the remelted ingot to billets or from the billet to turbine disks. Thus the window of forming temperature for Waspaloy is relatively small, necessitating several forming heats due to multiple exposures in heating furnaces, in turn resulting in a longer process duration and therefore higher manufacturing costs. Because of the necessarily higher forging temperatures and the absence of a grain-refining δ-phase, a very fine grain microstructure in the billet forged from Waspaloy is not achievable, in contrast to what can be ilustrated for Alloy 718. ",
+        "bbox": [
+            506,
+            681,
+            859,
+            882
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "[0009] For aircraft applications, Alloy 718 and Waspaloy are smelted as the primary heat in a VIM furnace then cast as round electrodes in chill molds. After further processing steps, either the electrodes are remelted in the ESR or VAR double-melt smelting process or VAR resmelted ingots are produced in the VIM/ESR/VAR triple-melt process. Before the resmelted ingots can be hot-formed, they are subjected to homogenization annealing. Thereafter the resmelted ingots are forged in several forging heats to billets, which in turn are used as forging stock for the manufacture, for example, of turbine disks. ",
+        "bbox": [
+            504,
+            885,
+            859,
+            948
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "discarded",
+        "text": "US 2019/0040501 A1 ",
+        "bbox": [
+            124,
+            68,
+            295,
+            82
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "discarded",
+        "text": "Feb. 7,2019 ",
+        "bbox": [
+            756,
+            69,
+            856,
+            82
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "discarded",
+        "text": "1 ",
+        "bbox": [
+            486,
+            87,
+            496,
+            99
+        ],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            124,
+            133,
+            478,
+            209
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0010] U.S. Pat. No. 6,730,264 discloses a nickel-chromium-cobalt alloy of the following composition: 12 to $2 0 \\%$ $\\mathrm { C r }$ up to $4 \\%$ Mo, up to $6 \\%$ W, 0.4 to $1 . 4 \\%$ Ti, 0.6 to $2 . 6 \\%$ A1, 4 to $8 \\%$ Nb (Ta), 5 to $12 \\%$ Co, up to $14 \\%$ Fe, up to $0 . 1 \\%$ C, 0.003 to $0 . 0 3 \\%$ P, 0.003 to $0 . 0 1 5 \\%$ B, the rest nickel. ",
+        "bbox": [
+            122,
+            212,
+            478,
+            275
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0011] DE 69934258 T2 discloses a process for manufacturing an object formed from Waspaloy, which process includes the following steps: ",
+        "bbox": [
+            124,
+            279,
+            478,
+            316
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0012] a) Preparing a batch of a material that consists, in wt $\\%$ , of 18 to 21 Cr, 3.5 to 5 Mo, 12 to $1 5 ~ \\mathrm { C o }$ ,2.75 to 3.25 Ti, 1.2 to $1 . 6 \\mathrm { A l }$ , up to 0.08 Zr, 0.003 to $0 . 0 1 0 \\mathrm { B }$ the rest Ni and incidental impurities; ",
+        "bbox": [
+            124,
+            319,
+            478,
+            371
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0013] b) Smelting the batch of the material in a vacuum environment at a pressure of less than $1 0 0 \\mu$ ( $1 3 . 3 3 \\mathrm { P a } )$ in a ceramic-free smelting system and heating the batch of the material to a limited superheat step within $2 0 0 ^ { \\circ }$ F. $9 3 ^ { \\circ }$ C.) above the melting point of the alloy; ",
+        "bbox": [
+            122,
+            373,
+            478,
+            436
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0014] c) Pouring the smelted batch of the material into a shot cylinder of a pressure die-casting apparatus in the vacuum environment, so that the molten material fills less than half of the shot cylinder; and ",
+        "bbox": [
+            122,
+            439,
+            478,
+            489
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0015] d) Injecting the molten material under pressure into a reusable mold. ",
+        "bbox": [
+            124,
+            492,
+            478,
+            518
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0016] US 2008/0166258 A1 discloses a heat-resisting nickel-base alloy containing (in wt $\\%$ ): ${ \\leq } 0 . 1 \\%$ C, $\\leq 1 . 0 \\%$ Si, $\\leq 1 . 5 \\%$ Mn, $1 3 . 0 { - } 2 5 . 0 \\%$ (cid:) $\\mathrm { C r }$ (: $1 . 5 { - } 7 . 0 \\%$ Mo, $0 . 5 { - } 4 . 0 \\%$ Ti, $0 . 1 { - } 3 . 0 \\%$ A1, optionally at least one element from the group containing $0 . 1 5 { - } 2 . 5 \\%$ W, $0 . 0 0 1 \\substack { - 0 . 0 2 \\% }$ B, $0 . 0 1 \\mathrm { - } 0 . 3 \\%$ Zr, $0 . 3 \\substack { - 6 . 0 \\% }$ Nb, $5 . 0 { - } 1 8 . 0 \\%$ Co and $0 . 0 3 { - } 2 . 0 \\%$ Cu, the rest nickel and unavoidable impurities. ",
+        "bbox": [
+            124,
+            521,
+            478,
+            609
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "SUMMARY OF THE INVENTION ",
+        "text_level": 1,
+        "bbox": [
+            192,
+            623,
+            411,
+            636
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0017] The invention is based on the object of providing an alloy in which the previously described advantages of the two known alloys, Alloy 718 and Waspaloy, i.e., the good hot formability of Alloy 718 and the microstructural stability of Waspaloy up to higher temperatures of approximately $7 5 0 ^ { \\circ } ~ \\mathrm { C } .$ , can be combined. ",
+        "bbox": [
+            124,
+            646,
+            478,
+            722
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0018] This object is achieved by an NiCo alloy with 30 to 65 wt $\\% \\ N \\mathrm { i }$ , ",
+        "bbox": [
+            122,
+            724,
+            478,
+            750
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "${ > } 0$ to max. $10 \\mathrm { \\ m t \\ \\% }$ Fe, ${ > } 1 2$ to $< 3 5$ wt $\\%$ Co, 13 to 23 wt $\\%$ Cr, 1 to 6 wt $\\%$ Mo, 4 to 6 wt $\\%$ $\\mathrm { N b + T a }$ , ${ > } 0$ to $< 3$ wt $\\%$ Al, ${ > } 0$ to $^ { < 2 }$ wt $\\%$ Ti, ${ > } 0$ to max. 0.1 wt $\\%$ C, ${ > } 0$ to max. 0.03 wt $\\% \\mathrm { ~ P , > 0 ~ }$ to max. 0.01 wt $\\%$ Mg, ${ > } 0$ to max. 0.02 wt $\\%$ B, ${ > } 0$ to max. 0.1 wt $\\% \\ Z _ { \\Gamma }$ , if necessary containing as residual elements: ",
+        "bbox": [
+            124,
+            753,
+            478,
+            829
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "table",
+        "img_path": "images/969115e567da90090c3395e69a1d68524a5679eae7cd0f803eb063bceb2e6b97.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td></td><td>max.0.5 wt % Cu</td></tr><tr><td></td><td>max. 0.015 wt % s</td></tr><tr><td></td><td>max. 1.0 wt % Mn</td></tr><tr><td></td><td>max. 1.0 wt % Si</td></tr><tr><td></td><td>max. 0.01 wt % Ca</td></tr><tr><td></td><td>max. 0.03 wt % N</td></tr><tr><td></td><td>max. 0.02 wt % 0,</td></tr></table>",
+        "bbox": [
+            124,
+            848,
+            480,
+            931
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "if necessary also containing: ",
+        "bbox": [
+            506,
+            133,
+            676,
+            147
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "up to 4 wt $\\%$ V ",
+        "bbox": [
+            506,
+            151,
+            602,
+            164
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0019] up to 4 wt $\\%$ W, wherein the alloy satisfies the requirements and criteria listed below: a) $9 0 0 ^ { \\circ } \\mathrm { C } . { \\leq } \\gamma ^ { \\prime }$ -solvus temperature: $\\mathsf { s } 1 0 3 0 ^ { \\mathrm { o } }$ C. at 3 at $\\% { \\leq } \\mathrm { { A l + T i } }$ (at $\\% ) { \\leq } 5 . 6$ at $\\%$ as well as 11.5 at $\\% { \\leq } \\mathrm { C o } { \\leq } 3 5$ at $\\%$ ; ",
+        "bbox": [
+            506,
+            166,
+            715,
+            179
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            504,
+            179,
+            861,
+            214
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "b) stable microstructure after $5 0 0 \\ \\mathrm { h }$ of aging annealing at $8 0 0 ^ { \\circ } \\mathrm { C }$ . and an Al/Ti ratio≥5 (on the basis of the contents in at $\\%$ ). ",
+        "bbox": [
+            504,
+            215,
+            859,
+            251
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0020] Advantageous improvements of the inventive alloy are specified in the associated dependent claims. ",
+        "bbox": [
+            506,
+            252,
+            859,
+            277
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0021] On the basis of the parameters mentioned in claim 1, the inventive alloy no longer exhibits the disadvantages of Alloy 718, namely the relatively low application temperature, and of Waspaloy, namely the poor hot formability. ",
+        "bbox": [
+            504,
+            279,
+            861,
+            328
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0022] The inventive alloy preferably satisfies the requirement ${ } ^ { \\bullet \\bullet } 9 4 5 ^ { \\circ } \\mathrm { C } . \\leq \\gamma ^ { \\prime }$ -solvus temperature $\\le 1 0 0 0 ^ { \\circ }$ C.\" ",
+        "bbox": [
+            506,
+            329,
+            859,
+            353
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0023] It is of particular advantage when $\\mathrm { C o }$ contents between 11.5 and 35 at $\\%$ can be adjusted at a $\\Delta \\mathrm { T }$ (δ-γ) 80 K and $\\mathrm { A l } { + } \\mathrm { T i } { \\le } 4 . 7$ atomic $\\%$ ",
+        "bbox": [
+            504,
+            354,
+            861,
+            390
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0024] The inventive alloy advantageously has a temperature interval between δ-solvus and $\\gamma ^ { \\dagger }$ -solvus temperatures equal to or greater than $1 4 0 ~ \\mathrm { K }$ and at the same time a Co content between 15 and 35 at $\\%$ . ",
+        "bbox": [
+            504,
+            391,
+            861,
+            440
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0025] According to a further improvement of the invention, the Ti content in the alloy is adjusted to $\\mathtt { s 0 . 8 }$ atomic $\\%$ and more preferably to a content of ${ \\le } 0 . 6 5$ atomic $\\%$ . ",
+        "bbox": [
+            504,
+            441,
+            859,
+            478
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0026] Restricting the $( \\mathrm { N b + T a } )$ contents to values between 4.7 and $5 . 7 \\mathrm { w t \\% }$ may also contribute to improving the good hot deformability of Alloy 718 and the microstructural stability of Waspaloy up to higher temperatures of approximately $7 5 0 ^ { \\circ } ~ \\mathrm { C }$ ",
+        "bbox": [
+            504,
+            479,
+            859,
+            541
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0027] The value ranges for a ratio of two element contents are different when expressed in atomic and weight percent. At the structural level, atomic proportions are essential. The contents of the elements essential for the inventive alloy, namely Al, Ti and Co, are presented in atomic $\\%$ especially in Table 6a. ",
+        "bbox": [
+            506,
+            542,
+            859,
+            617
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0028] The inventive alloy may also contain the following elements as residual elements: ",
+        "bbox": [
+            506,
+            618,
+            861,
+            642
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "table",
+        "img_path": "images/f15e83180111da1376cdf268a19dc0508fdbb45e972df0f570d358f00694b678.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>Cu</td><td>max.0.5 wt %</td></tr><tr><td>S</td><td>max.0.015 wt %</td></tr><tr><td>Mn</td><td>max. 1.0 wt %</td></tr><tr><td>Si</td><td>max. 1.0 wt %</td></tr><tr><td>Ca</td><td>max.0.01 wt %</td></tr><tr><td>N</td><td>max.0.03 wt %</td></tr><tr><td>0</td><td>max.0.02 wt %</td></tr></table>",
+        "bbox": [
+            504,
+            661,
+            861,
+            744
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "If appropriate for the respective application, the inventive alloy may if necessary also contain the following elements [0029] In the inventive alloy, the elements listed below may be adjusted as follows: ",
+        "bbox": [
+            504,
+            756,
+            861,
+            781
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "table",
+        "img_path": "images/b5ac9e79d0678a1b751e35d72d492552bd620787b3c83d31f09d6d8dff56f86b.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>V</td><td>up to 4 wt %</td></tr><tr><td>W</td><td>up to 4 wt %</td></tr></table>",
+        "bbox": [
+            504,
+            800,
+            861,
+            833
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            504,
+            844,
+            861,
+            869
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "table",
+        "img_path": "images/321485d586d6981344c5320100f5232ff3edb396a19e2377f9f5dd86f2f279a8.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td></td><td>0.05 at % ≤ Ti ≤ 0.5 at %,</td></tr><tr><td></td><td>3.6 at % ≤ Al ≤ 4.6 at %, 15 at % ≤ Co ≤ 32 at %.</td></tr></table>",
+        "bbox": [
+            504,
+            887,
+            861,
+            931
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "discarded",
+        "text": "US 2019/0040501 A1 ",
+        "bbox": [
+            124,
+            68,
+            295,
+            82
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "discarded",
+        "text": "Feb. 7, 2019 ",
+        "bbox": [
+            756,
+            69,
+            856,
+            83
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "discarded",
+        "text": "2 ",
+        "bbox": [
+            486,
+            88,
+            498,
+            99
+        ],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[0030] Depending on area of application of the inventive alloy, it may be appropriate from cost viewpoints to substitute part of the elements Ni and/or Co with the less expensive element Fe. ",
+        "bbox": [
+            124,
+            133,
+            478,
+            184
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0031] The inventive alloy is preferably usable as a component in an aircraft turbine, especially a rotating turbine disk, as well as a component of a stationary turbine. ",
+        "bbox": [
+            124,
+            185,
+            478,
+            222
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0032] The alloy may be produced in the following semifinished forms: strip, sheet, wire, bar. ",
+        "bbox": [
+            124,
+            223,
+            478,
+            248
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0033] The material is creep-resistant at high temperature and, besides the already mentioned applications, can also be used for the following service areas: in engine construction, in exhaust-gas systems, as heat shields, in furnace construction, in boiler construction, in power-plant construction, especially as superheater pipes, as structural parts in gas and oil extraction engineering, in stationary gas and steam turbines and also as a weld filler for all of the said applications. ",
+        "bbox": [
+            124,
+            250,
+            478,
+            362
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0034] The present invention describes a nickel alloy, especially for critical rotating components of an aircraft turbine. The inventive alloy has a high microstructural stability at high temperatures and therefore offers the possibility of application at thermal loads up to $1 0 0 ~ \\mathrm { K }$ hotter than for the known nickel-base Alloy 718. Furthermore, the inventive alloy is characterized by better formability than the nickel alloy known as Waspaloy. The alloy of the present invention offers technological properties that permit applications in gas turbines in the form of disks, blades, holders, housings or shafts . ",
+        "bbox": [
+            124,
+            363,
+            478,
+            501
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0035] The present invention describes the chemical composition, the technological properties and the processes for the manufacture of semifinished products made from the material of the inventive nickel-cobalt alloy. ",
+        "bbox": [
+            124,
+            502,
+            478,
+            551
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "BRIEF DESCRIPTION OF THE DRAWINGS ",
+        "text_level": 1,
+        "bbox": [
+            158,
+            564,
+            442,
+            577
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0036] Other objects and features of the invention will become apparent from the following detailed description considered in connection with the accompanying drawings. It is to be understood, however, that the drawings are designed as an illustration only and not as a definition of the limits of the invention. ",
+        "bbox": [
+            124,
+            585,
+            478,
+            660
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0037] In the drawings, ",
+        "bbox": [
+            125,
+            661,
+            277,
+            674
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0038] FIG. 1 shows $\\gamma ^ { \\dagger }$ -Solvus temperatures of the test alloys versus the sum of the $\\mathrm { A l } { + } \\mathrm { T } \\mathrm { i }$ contents (atomic $\\%$ )of the chemical compositions. ",
+        "bbox": [
+            124,
+            676,
+            478,
+            713
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0039] FIG. 2 shows $\\gamma ^ { \\dagger }$ -Solvus temperatures of the test alloys versus the sum of the $\\mathrm { A l } { + } \\mathrm { T } \\mathrm { i }$ contents (at $\\%$ ) of the chemical compositions with the restricted temperature range between $9 4 5 ^ { \\circ } \\mathrm { ~ C ~ }$ . and $1 0 0 0 ^ { \\circ } \\mathrm { ~ C ~ }$ ",
+        "bbox": [
+            124,
+            715,
+            478,
+            765
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0040] FIG. 3 shows occurrence of the $\\boldsymbol { \\mathsf { \\Pi } } ^ { \\mathsf { \\Pi } }$ -phase versus the plots of the contents of $\\mathrm { C o }$ and Ti of the test alloys. ",
+        "bbox": [
+            124,
+            767,
+            478,
+            791
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0041] FIG. 4 shows the difference between δ-solvus and $\\gamma ^ { \\prime }$ -solvus temperature of the test alloys versus the sum of the $\\mathrm { A l } { + } \\mathrm { T i }$ contents (at $\\%$ ). Open squares: $\\mathrm { C o } { < } 1 1 . 5$ at $\\%$ open diamonds: 11.5 at $\\% { \\leq } \\mathrm { C o } { \\leq } 1 8$ at $\\%$ , closed diamonds: $\\mathrm { C o } { > } 1 8$ at $\\%$ . ",
+        "bbox": [
+            122,
+            792,
+            478,
+            854
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0042] FIGS. 5A-5J show exemplary SEM photographs for test alloys L4, V10, V15, V16 and V17 after aging annealing for $5 0 0 \\ \\mathrm { h }$ at $8 0 0 ^ { \\circ }$ C. ",
+        "bbox": [
+            124,
+            857,
+            478,
+            895
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0043] FIG. 6 shows A 780 variants in comparison with Alloy 718 (tension test: $\\mathrm { R p } \\ 0 . 2$ )d ",
+        "bbox": [
+            124,
+            896,
+            478,
+            921
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0044] FIG. 7 shows A 780 variants in comparison with Alloy 718 (tension test: Rm) ",
+        "bbox": [
+            124,
+            922,
+            478,
+            948
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "DETAILED DESCRIPTION OF PREFERRED EMBODIMENTS ",
+        "text_level": 1,
+        "bbox": [
+            539,
+            133,
+            826,
+            159
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0045] The properties of the inventive alloy are discussed hereinafter: ",
+        "bbox": [
+            506,
+            165,
+            859,
+            190
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0046] Numerous laboratory heats with different chemical compositions were produced by means of a laboratory vacuum arc furnace. ",
+        "bbox": [
+            504,
+            190,
+            859,
+            228
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0047] Each heat was cast into a heavy-duty cylindrical copper chill mold with a diameter of $1 3 ~ \\mathrm { \\ m m }$ . During smelting, three bars with a length of approximately $8 0 ~ \\mathrm { m m }$ were produced. All alloys were homogenized after smelting. The entire process took place in the vacuum furnace and consisted of 2 stages: $1 1 4 0 ^ { \\circ } \\mathrm { C } . / 6 \\mathrm { h } { + } 1 1 7 5 ^ { \\circ } \\mathrm { C } . / 2 0 \\mathrm { h }$ This was followed by quenching in an argon atmosphere. Hot forming for the smelted alloys was carried out using a rotary swaging machine. The bars had a diameter of $1 3 \\mathrm { m m }$ at the beginning and were reduced in diameter by four rotary swaging operations of one millimeter each to obtain the final diameter of $9 ~ \\mathrm { m m }$ . ",
+        "bbox": [
+            506,
+            228,
+            861,
+            378
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0048] Table 1 discloses the chemical composition of Alloy 718 corresponding to the prior art as specified by the valid AMS 5662 standard, while Table 2 presents the mechanical properties of that alloy. ",
+        "bbox": [
+            504,
+            380,
+            861,
+            430
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0049] Table 3 discloses the chemical composition of Waspaloy corresponding to the prior art as specified by the valid AMS 5662 standard, while Table 4 presents the mechanical properties of that alloy. ",
+        "bbox": [
+            504,
+            430,
+            861,
+            481
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0050] The inventive chemical compositions of the laboratory heats are listed in Table 5. At the bottom, the known alloys A718, A718 Plus and Waspaloy are also included as reference materials. In addition to the reference materials, the test alloys are identified with the letters V and L plus 2 numerals each. The chemical compositions of these test alloys include variations in the contents of the elements Ti, Al, Co and Nb. ",
+        "bbox": [
+            504,
+            481,
+            859,
+            580
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0051] When the contents of the elements Ti, Al and Co as well as the sum of $\\mathrm { A l } { + } \\mathrm { T } \\mathrm { i }$ and the Al/Ti ratio of the contents of the elements are expressed in atomic percent, very good technological properties are obtained in selected ranges for the $\\gamma ^ { \\dagger }$ -solvus temperature, the difference between δ-solvus and $\\gamma ^ { \\dagger }$ -solvus temperatures, the absence of primary delta phase and absence of the $\\boldsymbol { \\eta }$ -phase, the microstructural stability at $8 0 0 ^ { \\circ } \\mathrm { C }$ after aging annealing tests for $5 0 0 \\mathrm { h }$ and the mechanical hardness HV after a standard heat treatment comprising solution annealing and three-stage precipitationhardening annealing for A718 $9 8 0 ^ { \\circ }$ C./1 $\\bar { 1 } + 7 2 0 ^ { \\circ }$ C./8 $\\mathrm { h } { + } 6 2 0 ^ { \\circ }$ C./8 h, see the AMS 5662 standard). ",
+        "bbox": [
+            504,
+            582,
+            861,
+            731
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0052] Table 6a lists the contents in atomic percent of the elements Al, Ti and Co as well as the sum of the $\\mathrm { A l } { + } \\mathrm { T i }$ contents (in atomic percent) and the $\\mathrm { { A l / T i } }$ ratios for the test alloys and the 3 reference materials of Table 5. ",
+        "bbox": [
+            504,
+            733,
+            861,
+            782
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0053] Furthermore, Table 6b contains the calculated solvus temperatures of the δ-phase and of the $\\gamma ^ { \\dagger }$ -phase as well as the temperature difference $\\Delta \\mathrm { T }$ $( \\delta \\mathsf { - } \\gamma ^ { \\prime } )$ calculated therefrom between the δ-solvus and $\\gamma ^ { \\prime }$ -solvus temperatures. Table 6b also indicates the mechanical hardness values $1 0 \\mathrm { H V }$ determined for the test alloys (after three-stage precipitationhardening heat treatment of $9 8 0 ^ { \\circ } \\mathrm { ~ C . / 1 ~ h + 7 2 0 ^ { \\circ } \\mathrm { ~ C . / 8 ~ h + 6 2 0 ^ { \\circ } } }$ $\\mathrm { C } . / 8 \\mathrm { h }$ in accordance with the AMS 5662 standard for A718). Moreover, Table 6b indicates remarks on the occurrence of the $\\boldsymbol { \\eta }$ -phase (calculated or observed). ",
+        "bbox": [
+            504,
+            784,
+            859,
+            909
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0054] The criteria for selection of the inventive alloy are explained and exemplary test alloys are indicated in the following descriptions. ",
+        "bbox": [
+            504,
+            910,
+            861,
+            948
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "discarded",
+        "text": "US 2019/0040501 A1 ",
+        "bbox": [
+            124,
+            68,
+            295,
+            82
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "discarded",
+        "text": "Feb. 7, 2019 ",
+        "bbox": [
+            756,
+            69,
+            856,
+            83
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "discarded",
+        "text": "3 ",
+        "bbox": [
+            486,
+            87,
+            496,
+            99
+        ],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "[0055] For reasons of strength and microstructural stability, the $\\gamma ^ { \\prime }$ -solvus temperature of the inventive alloy should be $5 0 ~ \\mathrm { K }$ higher than that of alloy A718, which has a $\\gamma ^ { \\prime }$ solvus temperature of approximately $8 5 0 ^ { \\circ } \\mathrm { C }$ . On the other hand, the $\\gamma ^ { \\dagger }$ -solvus temperature of the inventive alloy should be lower than or equal to $1 0 3 0 ^ { \\circ } \\mathrm { ~ C ~ }$ .This $1 0 3 0 ^ { \\circ }$ C. corresponds approximately to the $\\gamma ^ { \\prime }$ -solvus temperature of Waspaloy. A higher $\\gamma ^ { \\dagger }$ -solvus temperature would influence the hot formability very negatively since, in the forging process, for example, $\\gamma ^ { \\prime }$ -precipitates already lead to extensive precipitation hardening of the surface of the forged piece if the surface temperatures of the forged piece are slightly below the $\\gamma ^ { \\prime }$ -solvus temperature, and this in turn may lead to considerable disruptions of the surface of the forged piece during further forming by forging. ",
+        "bbox": [
+            124,
+            133,
+            478,
+            323
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[0056] Thus the requirement $9 0 0 ^ { \\circ } \\ C . { \\leq } \\gamma ^ { \\prime }$ -solvus $\\mathrm { T } { \\le } 1 0 3 0 ^ { \\circ }$ C. should be satisfied. ",
+        "bbox": [
+            124,
+            325,
+            478,
+            351
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[0057] In FIG. 1, the $\\gamma ^ { \\prime }$ -solvus temperature of the test alloys is plotted against the sum of the $\\mathrm { A l } { + } \\mathrm { T i }$ contents (at $\\%$ )d) of their chemical compositions. ",
+        "bbox": [
+            124,
+            353,
+            478,
+            390
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[0058] From FIG. 1 it is evident that the requirement $\\mathrm { } ^ { \\ast \\ast } 9 0 0 ^ { \\circ } \\mathrm { ~ C . } \\leq \\gamma ^ { \\prime }$ -solvus $\\mathrm { T } { \\leq } 1 0 3 0 ^ { \\circ } \\mathrm { ~ C ~ }$ \" is satisfied by the restriction 3 at $\\scriptstyle \\% \\leq \\mathrm { A l } + \\mathrm { T i }$ $( \\mathrm { a t } ^ { 0 } / \\mathrm { o } ) { \\le } 5 . 6$ at $\\%$ . The test alloys V12, V13, V14, V15, V16, V17, V20, V21, V22, L04, L07, L09, L15, L16, L17 and L18 are exemplary alloys for this range. ",
+        "bbox": [
+            124,
+            393,
+            478,
+            457
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[0059] For even better hot formability, the $\\gamma ^ { \\prime }$ -solvus temperature of the inventive alloy should be ${ \\mathrm { < 1 0 0 0 ^ { \\circ } C } } ,$ , and for microstructural stability at even higher temperature it should be ${ > } 9 4 5 ^ { \\circ } \\mathrm { ~ C ~ }$ . The test alloys V14, V16, V17, V20, V21, V22 L04, L15, L16, L17 and L18 are exemplary alloys for this range. The temperature range bounded between $9 4 5 ^ { \\circ } \\mathrm { C }$ and $1 0 0 0 ^ { \\circ } \\mathrm { ~ C ~ }$ . is evident from FIG. 2. ",
+        "bbox": [
+            124,
+            459,
+            478,
+            547
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[0060] The Co content of the test alloys infl uences the δ-solvus and $\\gamma ^ { \\dagger }$ -solvus temperatures and thus AT $( \\delta \\mathsf { - } \\gamma ^ { \\mathsf { \\prime } } )$ . The Co content of the inventive alloy is not permitted to be too high, to ensure that no primary δ-phase develops. This restricts the $\\mathrm { C o }$ content to ${ < } 3 5$ at $\\%$ . Exemplary alloys in which primary δ-phase develops are the test alloys L12 and L13, both of which have a Co content of approximately 50 at $\\%$ ",
+        "bbox": [
+            124,
+            551,
+            478,
+            651
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[0061] FIG. 3, in which the occurrence of the $\\boldsymbol { \\eta }$ phase is marked on the plots of the $\\mathrm { C o }$ and $\\mathrm { T i }$ contents of the test alloys, shows that the Ti content of the inventive alloy must be limited to $\\mathbf { \\le 0 . 8 }$ at $\\%$ in alloys with $\\mathrm { C o }$ contents greater than 16 at $\\%$ , in order to prevent the development of a stable $\\boldsymbol { \\eta }$ -phase. Exemplary alloys with $\\mathrm { T i } { \\le } 0 . 8$ at $\\%$ are the test alloys V12, V13, V14, V15, V16, V17, V21 and V22. Preferred alloys have a Ti content of ${ \\le } 0 . 6 5$ at $\\%$ . These are the exemplary test alloys V16, V17, V21 and V22. ",
+        "bbox": [
+            124,
+            655,
+            478,
+            768
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[0062] During the forging process, minor proportions of δ-phase are consumed for grain refining of the microstructure. In other words, forging in the last forging heats is carried out starting from a temperature slightly below the δ-solvus temperature, in order to produce a very fine-grained microstructure of the respective forged piece. On the other hand, in order to make it possible to work with a sufficiently broad window of forging temperatures, the $\\gamma ^ { \\prime }$ -solvus temperature cannot be permitted to be too high, and it must lie well below the δ-solvus temperature of the inventive alloys. For the window of forging temperature to be sufficiently broad, it must be ${ \\tt \\ge } 8 0 ~ \\mathrm { K }$ . Therefore the difference $\\Delta \\mathrm { T }$ (cid:) $( \\delta \\mathsf { - } \\gamma ^ { \\prime } )$ between δ-solvus temperature and $\\gamma ^ { \\prime }$ -solvus temperature must be ${ \\le } 8 0 \\mathrm { ~ K ~ }$ . ",
+        "bbox": [
+            124,
+            771,
+            478,
+            946
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[0063] From FIG. 4, it can be seen that $\\Delta \\mathrm { T }$ (δ-γ) is $8 0 ~ \\mathrm { K }$ when the sum of the $\\mathrm { A l } { + } \\mathrm { T i }$ contents is $\\mathord { \\leq } 4 . 7$ at $\\%$ and the Co content is ${ \\geq } 1 1 . 5$ at $\\%$ . Even greater temperature intervals of $\\geq 1 4 0 \\mathrm { ~ K ~ }$ between δ-solvus temperature and $\\gamma ^ { \\dagger }$ -solvus temperature are possible if at the same time the Co content of the alloy is 15 at $\\%$ ",
+        "bbox": [
+            506,
+            133,
+            861,
+            213
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[0064] A further criterion results from the requirement that states that the microstructure of the inventive alloy should be stable at an aging temperature of $8 0 0 ^ { \\circ } \\mathrm { C }$ . (after $5 0 0 \\mathrm { h }$ ). This criterion is satisfied by the inventive alloys that have an $\\mathrm { { A l / T i } }$ ratio of ${ \\ge } 5 . 0$ . Exemplary alloys for this condition are the test alloys V13, V15, V16, V17, V21 and V22. ",
+        "bbox": [
+            504,
+            219,
+            859,
+            299
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[0065] Table 7 lists exemplary test alloys for the requirement of the Al/Ti ratio of the inventive alloy. ",
+        "bbox": [
+            506,
+            305,
+            859,
+            332
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[0066] FIGS. 5A-5J show exemplary SEM photographs for the test alloys L4, V10, V15, V16 and V17 after aging annealing for $5 0 0 \\ \\mathrm { h }$ at $8 0 0 ^ { \\circ } ~ \\mathrm { C }$ . ",
+        "bbox": [
+            504,
+            338,
+            861,
+            377
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "table",
+        "img_path": "images/ee655ba21bb7bec810bb2f51d3936ad116474e8820666e4ffc9151fe452dd34a.jpg",
+        "table_caption": [
+            "TABLE 1 "
+        ],
+        "table_footnote": [],
+        "table_body": "<table><tr><td colspan=\"2\">Chemical composition of Alloy 718 in accordance with the AMS 5662 standard</td></tr><tr><td>Element</td><td>Weight per cent</td></tr><tr><td>C</td><td>max. 0.08</td></tr><tr><td>Mn</td><td>max. 0.35</td></tr><tr><td>P</td><td>max.0.015</td></tr><tr><td>S</td><td>max.0.015</td></tr><tr><td>Si</td><td>max. 0.35</td></tr><tr><td>Cr</td><td>17-21%</td></tr><tr><td>Ni</td><td>50-55%</td></tr><tr><td>Fe</td><td>Rest</td></tr><tr><td>Mo</td><td>2.8-3.3%</td></tr><tr><td>Nb</td><td>4.75-5.5%</td></tr><tr><td>Ti</td><td>0.65-1.15%</td></tr><tr><td>Al</td><td>0.2-0.8%</td></tr><tr><td>Al + Ti</td><td>0.85-1.95%</td></tr><tr><td>Co</td><td>max.1%</td></tr><tr><td>B</td><td>max.0.006%</td></tr><tr><td>Cu</td><td>max.0.3%</td></tr><tr><td>Pb</td><td>max.0.0005%</td></tr><tr><td>Se</td><td>max.0.0003%</td></tr><tr><td>Bi</td><td>max.0.00003%</td></tr></table>",
+        "bbox": [
+            504,
+            405,
+            859,
+            685
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "table",
+        "img_path": "images/c428c6c6d13c07107cfe4e3c1c8fcb372a0c3fa0406135e6e7d9451e5fb90fd3.jpg",
+        "table_caption": [
+            "TABLE2 "
+        ],
+        "table_footnote": [],
+        "table_body": "<table><tr><td colspan=\"3\">Mechanical properties of Alloy 718 in accordance with the AMS 5662 standard</td></tr><tr><td>Mechanical properties</td><td>Test conditions</td><td>Requirements in accordance with AMS 5662</td></tr><tr><td>Offset yield strength Rp0.2</td><td>20^C.</td><td>≥1034MPa</td></tr><tr><td>Tensile strength Rm</td><td>20°C.</td><td>≥1276 MPa</td></tr><tr><td>Elongation A5</td><td>20°C.</td><td>≥12%</td></tr><tr><td>Hardness HB</td><td>20°C.</td><td>≥331HB</td></tr><tr><td>Offset yield strength Rp0.2</td><td>650°C.</td><td>≥862 MPa</td></tr><tr><td>Tensile strength Rm</td><td>650°C.</td><td>≥1000MPa</td></tr><tr><td>Elongation A5</td><td>650°C.</td><td>≥12%</td></tr><tr><td>Reduction of area at break Z Stress rupture test</td><td>650°C.</td><td>≥15%</td></tr><tr><td>Time to break Elongation A5</td><td>650°C.</td><td>≥23h</td></tr></table>",
+        "bbox": [
+            503,
+            727,
+            861,
+            931
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "discarded",
+        "text": "US 2019/0040501 A1 ",
+        "bbox": [
+            124,
+            68,
+            295,
+            82
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "discarded",
+        "text": "Feb. 7,2019 ",
+        "bbox": [
+            756,
+            69,
+            856,
+            82
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "discarded",
+        "text": "4 ",
+        "bbox": [
+            486,
+            88,
+            498,
+            99
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "table",
+        "img_path": "images/912c01c4bc417fefa445e19a88f87e41908c2d1469cb7ea06187c5d567f5aee8.jpg",
+        "table_caption": [
+            "TABLE 3 "
+        ],
+        "table_footnote": [],
+        "table_body": "<table><tr><td colspan=\"2\">Chemical composition of Waspaloy in accordance with the AMS 5704 standard</td></tr><tr><td>Element</td><td>weight per cent</td></tr><tr><td>C</td><td>0.02-0.10%</td></tr><tr><td>Mn</td><td>max.0.1%</td></tr><tr><td>P</td><td>max.0.015%</td></tr><tr><td>S</td><td>max.0.015%</td></tr><tr><td>Si</td><td>max.0.15%</td></tr><tr><td>Cr</td><td>18-21%</td></tr><tr><td>Fe</td><td>max.2%</td></tr><tr><td>Mo</td><td>3.5-5.0%</td></tr><tr><td>Nb</td><td></td></tr><tr><td>Ti</td><td>2.75-3.25%</td></tr><tr><td>Al</td><td>1.2-1.6%</td></tr><tr><td>Co</td><td>12-15%</td></tr><tr><td>Ni</td><td>Rest</td></tr><tr><td>B</td><td>0.003-0.01%</td></tr><tr><td>Cu</td><td>max.0.1%</td></tr><tr><td>Zr</td><td>0.02-0.08%</td></tr><tr><td>Pb</td><td>max.0.0005%</td></tr><tr><td>Bi</td><td>max.0.00003%</td></tr><tr><td>Se</td><td>max.0.0003%</td></tr><tr><td>Ag</td><td>max.0.0005%</td></tr></table>",
+        "bbox": [
+            122,
+            151,
+            478,
+            421
+        ],
+        "page_idx": 21
+    },
+    {
+        "type": "table",
+        "img_path": "images/8209768341d8cb8d5eef7fed4998af4ce5f09c1a60b26f89ad25048112337ed3.jpg",
+        "table_caption": [
+            "TABLE 4 ",
+            "TABLE5 "
+        ],
+        "table_footnote": [],
+        "table_body": "<table><tr><td colspan=\"3\">Mechanical properties of waspaloy in accordance with the AMS 5704 standard</td></tr><tr><td>Mechanical properties</td><td>Test conditions</td><td>Requirements in accordance with AMS 5662</td></tr><tr><td>Offset yield strength Rp0.2</td><td>20°C.</td><td>≥827MPa</td></tr><tr><td>Tensile strength Rm</td><td>20°C. 20°C.</td><td>≥1207 MPa</td></tr><tr><td>Elongation A5 Hardness HB</td><td></td><td>≥15%</td></tr><tr><td></td><td>20°C.</td><td>≥341 HB and ≤401 HB</td></tr><tr><td>Offset yield strength Rp0.2</td><td>538°C.</td><td>≥724MPa</td></tr><tr><td>Tensile strength Rm</td><td>538°C.</td><td>≥1069 MPa</td></tr><tr><td>Elongation A5</td><td>538°C.</td><td>≥15%</td></tr><tr><td>Reduction of area at break Z Stress rupture test</td><td>538°C.</td><td>≥18%</td></tr><tr><td>Time to break</td><td>732°C.</td><td>≥23h</td></tr><tr><td>Elongation A5 Stress rupture test</td><td>Load 552 MPa</td><td>≥5%</td></tr><tr><td>Time to break Elongation A5</td><td>816°C. Load 293 MPa</td><td>≥23h ≥5%</td></tr></table>",
+        "bbox": [
+            122,
+            460,
+            480,
+            717
+        ],
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "Chemical compositions (in weight percent) of the test alloys (actual analysis). The C content of all alloys is approximately $0 . 0 2 5 ~ \\mathrm { w t } ~ \\%$ .If necessary, the respective alloy may contain the following elements as residual elements: Cu, S, Mn, Si, Ca, N, O.   \nDepending on application, W up to 4 wt $\\%$ and/or V up   \nto 4 wt $\\%$ may also be present in the respective alloy.   \nThe alloys A71 8Plus and Waspaloy respectively contain 1 wt % W. ",
+        "bbox": [
+            122,
+            758,
+            441,
+            854
+        ],
+        "page_idx": 21
+    },
+    {
+        "type": "table",
+        "img_path": "images/324151a47976a129d15a80aa789c21238392fbfc4971e84f78d2a5724fe7f75f.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>Alloy</td><td>Ni</td><td>Fe</td><td>Cr</td><td>Mo</td><td>Ti</td><td>Al</td><td>Nb + Ta</td><td>Co</td></tr><tr><td>V05</td><td>Rest</td><td>0.05</td><td>18.17</td><td>2.96</td><td>2.00</td><td>1.96</td><td>5.50</td><td>17.03</td></tr><tr><td>V07</td><td>Rest</td><td>0.06</td><td>18.40</td><td>2.96</td><td>2.01</td><td>1.97</td><td>5.45</td><td>29.95</td></tr><tr><td>V10</td><td>Rest</td><td>0.05</td><td>18.48</td><td>3.03</td><td>1.11</td><td>2.04</td><td>5.38</td><td>17.03</td></tr><tr><td>V11</td><td>Rest</td><td>0.06</td><td>18.50</td><td>3.05</td><td>1.11</td><td>2.03</td><td>5.39</td><td>30.04</td></tr><tr><td>V12</td><td>Rest</td><td>0.05</td><td>18.40</td><td>2.97</td><td>0.50</td><td>1.23</td><td>5.53</td><td>17.04</td></tr></table>",
+        "bbox": [
+            122,
+            853,
+            478,
+            935
+        ],
+        "page_idx": 21
+    },
+    {
+        "type": "table",
+        "img_path": "images/d6b3f0221afd67538d3e76b9a0469ae767c9b0f86348c3364977150e6e89a1bd.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td colspan=\"10\"></td></tr><tr><td>Alloy</td><td>Ni</td><td>Fe</td><td>Cr</td><td>Mo</td><td>Ti</td><td>Al</td><td>Nb + Ta</td><td>Co</td></tr><tr><td>V13</td><td>Rest</td><td>0.04</td><td>18.41</td><td>2.99</td><td>0.49</td><td>1.97</td><td>5.50</td><td>16.98</td></tr><tr><td>V14</td><td>Rest</td><td>0.04</td><td>18.43</td><td>2.99</td><td>0.49</td><td>1.60</td><td>5.52</td><td>17.01</td></tr><tr><td>V15</td><td>Rest</td><td>0.04</td><td>18.50</td><td>2.96</td><td>0.50</td><td>2.33</td><td>5.45</td><td>17.05</td></tr><tr><td>V16</td><td>Rest</td><td>0.05</td><td>18.25</td><td>2.98</td><td>0.17</td><td>1.90</td><td>5.51</td><td>17.25</td></tr><tr><td>V17</td><td>Rest</td><td>0.05</td><td>18.48</td><td>2.96</td><td>0.17</td><td>1.90</td><td>5.40</td><td>24.98</td></tr><tr><td>V20</td><td>Rest</td><td>0.05</td><td>18.70</td><td>2.99</td><td>0.52</td><td>2.04</td><td>5.60</td><td>30.10</td></tr><tr><td>V21</td><td>Rest</td><td>0.04</td><td>18.70</td><td>2.96</td><td>0.20</td><td>2.04</td><td>5.58</td><td>25.06</td></tr><tr><td>V22</td><td>Rest</td><td>0.04</td><td>18.70</td><td>2.96</td><td>0.20</td><td>2.04</td><td>5.40</td><td>30.10</td></tr><tr><td>L03</td><td>Rest</td><td>0.18</td><td>18.20</td><td>2.90</td><td>0.75</td><td>0.63</td><td>5.49</td><td>16.98</td></tr><tr><td>L04</td><td>Rest</td><td>0.04</td><td>18.45</td><td>3.06</td><td>1.09</td><td>1.24</td><td>5.46</td><td>17.05</td></tr><tr><td>L06</td><td>Rest</td><td>0.21</td><td>18.40</td><td>2.91</td><td>0.73</td><td>0.64</td><td>5.49</td><td>30.00</td></tr><tr><td>L07</td><td>Rest</td><td>0.38</td><td>18.32</td><td>2.93</td><td>1.07</td><td>0.92</td><td>5.49</td><td>17.04</td></tr><tr><td>L09</td><td>Rest</td><td>0.46</td><td>18.40</td><td>2.94</td><td>1.46</td><td>1.23</td><td>5.60</td><td>16.90</td></tr><tr><td>L12</td><td>Rest</td><td>0.34</td><td>18.50</td><td>2.90</td><td>0.72</td><td>0.61</td><td>5.36</td><td>49.76</td></tr><tr><td>L13</td><td>Rest</td><td>0.45</td><td>18.32</td><td>2.90</td><td>1.48</td><td>0.69</td><td>5.59</td><td>49.88</td></tr><tr><td>L15</td><td>Rest</td><td>0.03</td><td>18.47</td><td>3.03</td><td>1.09</td><td>1.25</td><td>5.38</td><td>13.99</td></tr><tr><td>L16</td><td>Rest</td><td>0.03</td><td>18.46</td><td>3.02</td><td>1.64</td><td>0.92</td><td>5.40</td><td>12.00</td></tr><tr><td>L17</td><td>Rest</td><td>0.04</td><td>18.42</td><td>3.04</td><td>1.12</td><td>1.23</td><td>5.41</td><td>25.14</td></tr><tr><td>L18</td><td>Rest</td><td>0.05</td><td>18.49</td><td>3.04</td><td>1.11</td><td>1.24</td><td>5.38</td><td>30.01</td></tr><tr><td>A718</td><td>Rest</td><td>17.06</td><td>18.71</td><td>2.93</td><td>0.99</td><td>0.48</td><td>5.32</td><td>0.02</td></tr><tr><td>A718Plus</td><td>Rest</td><td>10.00</td><td>18.00</td><td>2.75</td><td>0.70</td><td>1.45</td><td>5.45</td><td>9.00</td></tr><tr><td>Waspaloy</td><td>Rest</td><td>0.20</td><td>19.5</td><td>4.25</td><td>3.00</td><td>1.30</td><td>0</td><td>13.5</td></tr></table>",
+        "bbox": [
+            503,
+            252,
+            859,
+            545
+        ],
+        "page_idx": 21
+    },
+    {
+        "type": "table",
+        "img_path": "images/f82077770dd956641b8e94b89e31bd6fc90786a100fcb31c97a4be3a043dc44a.jpg",
+        "table_caption": [
+            "TABLE 6a "
+        ],
+        "table_footnote": [],
+        "table_body": "<table><tr><td colspan=\"6\">Element contents in atomic percent or ratios of element contents of the test alloys</td></tr><tr><td>Alloy at %</td><td>Al/Ti</td><td>Al + Ti</td><td>Ti</td><td>Al</td><td>Co</td></tr><tr><td>V05</td><td>1.74</td><td>6.58</td><td>2.40</td><td>4.18</td><td>16.65</td></tr><tr><td>V07</td><td>1.73</td><td>6.62</td><td>2.42</td><td>4.20</td><td>29.27</td></tr><tr><td>V10</td><td>3.28</td><td>5.69</td><td>1.33</td><td>4.36</td><td>16.65</td></tr><tr><td>V11</td><td>3.24</td><td>5.68</td><td>1.34</td><td>4.34</td><td>29.40</td></tr><tr><td>V12</td><td>4.36</td><td>3.27</td><td>0.61</td><td>2.66</td><td>16.85</td></tr><tr><td>V13</td><td>7.15</td><td>4.81</td><td>0.59</td><td>4.22</td><td>16.65</td></tr><tr><td>V14</td><td>5.83</td><td>4.03</td><td>0.59</td><td>3.44</td><td>16.75</td></tr><tr><td>V15</td><td>8.28</td><td>5.57</td><td>0.60</td><td>4.97</td><td>16.64</td></tr><tr><td>V16</td><td>20.35</td><td>4.27</td><td>0.20</td><td>4.07</td><td>16.94</td></tr><tr><td>V17</td><td>20.35</td><td>4.27</td><td>0.20</td><td>4.07</td><td>24.52</td></tr><tr><td>V20</td><td>20.00</td><td>4.64</td><td>0.62</td><td>4.02</td><td>29.58</td></tr><tr><td>V21</td><td>18.10</td><td>4.61</td><td>0.24</td><td>4.37</td><td>24.49</td></tr><tr><td>V22</td><td>18.17</td><td>4.60</td><td>0.24</td><td>4.36</td><td>29.48</td></tr><tr><td>L03</td><td>1.49</td><td>2.29</td><td>0.92</td><td>1.37</td><td>16.94</td></tr><tr><td>L04</td><td>2.02</td><td>3.99</td><td>1.32</td><td>2.67</td><td>16.83</td></tr><tr><td>L06</td><td>1.55</td><td>2.30</td><td>0.90</td><td>1.40</td><td>29.93</td></tr><tr><td>L07</td><td>1.53</td><td>3.31</td><td>1.31</td><td>2.00</td><td>16.96</td></tr><tr><td>L09</td><td>1.49</td><td>4.44</td><td>1.78</td><td>2.66</td><td>16.75</td></tr><tr><td>L12</td><td>1.51</td><td>2.21</td><td>0.88</td><td>1.33</td><td>49.73</td></tr><tr><td>L13</td><td>0.83</td><td>3.33</td><td>1.82</td><td>1.51</td><td>49.83</td></tr><tr><td>L15</td><td>2.04</td><td>4.01</td><td>1.32</td><td>2.69</td><td>13.80</td></tr><tr><td>L16</td><td>0.99</td><td>3.99</td><td>2.00</td><td>1.99</td><td>11.87</td></tr><tr><td>L17</td><td>1.95</td><td>4.01</td><td>1.36</td><td>2.65</td><td>24.83</td></tr><tr><td>L18</td><td>1.98</td><td>4.02</td><td>1.35</td><td>2.67</td><td>29.63</td></tr><tr><td>A718</td><td>0.86</td><td>2.55</td><td>1.37</td><td>1.18</td><td>0.02</td></tr><tr><td>A718Plus</td><td>3.66</td><td>4.43</td><td>0.95</td><td>3.48</td><td>9.00</td></tr><tr><td>Waspaloy</td><td>0.77</td><td>6.3</td><td>3.56</td><td>2.74</td><td>13.5</td></tr><tr><td colspan=\"6\">5662 standard for A718) and remarks on the n-phase for the test alloys. Remarks on the</td></tr><tr><td>Alloy</td><td>δ-solv. T (º C.)</td><td>γ'-solv. T ( C.)</td><td>ΔT (δ-γ) (K)</td><td>10HV</td><td>n-phase Hardness (calculated or observed)</td></tr><tr><td></td><td></td><td>1077</td><td>3</td><td>506</td><td>Large amounts of n-phase</td></tr><tr><td>V07 V10</td><td>1157 1090</td><td>1037</td><td>120</td><td>539</td><td>n-Phase</td></tr><tr><td>V11</td><td>1180</td><td>1050 1037</td><td>40 143</td><td>491 486</td><td>No n-phase n-Phase stable</td></tr><tr><td></td><td></td><td></td><td></td><td></td><td>from 1127°C.</td></tr><tr><td>V12</td><td>1097</td><td>917</td><td>180</td><td>415</td><td>No n-phase</td></tr><tr><td>V13</td><td>1087</td><td>1027</td><td>60</td><td>426</td><td>No n-phase</td></tr><tr><td>V14</td><td>1097 1077</td><td>967</td><td>130</td><td>417</td><td>No n-phase</td></tr><tr><td>V15</td><td></td><td>1027</td><td>50</td><td>470</td><td>No n-phase</td></tr><tr><td>V16</td><td>1097</td><td>997</td><td>100</td><td>442</td><td>No n-phase</td></tr><tr><td>V17 V20</td><td>1152 1162</td><td>957</td><td>195</td><td>448</td><td>No n-phase Small amounts</td></tr><tr><td></td><td></td><td>950</td><td>212</td><td>446</td><td>of n-phase; if necessary after</td></tr><tr><td>V21</td><td>1127</td><td></td><td></td><td></td><td>aging at 800°C.</td></tr><tr><td>V22</td><td>1177</td><td>952 952</td><td>175 225</td><td>455</td><td>No n-phase No n-phase</td></tr><tr><td>L03</td><td>1117</td><td>887</td><td>230</td><td>396</td><td>n-Phase stable</td></tr><tr><td>L04</td><td>1100</td><td>977</td><td>123</td><td>410</td><td>from 937° C. Small amounts of n-phase,</td></tr><tr><td></td><td></td><td></td><td></td><td></td><td>stable from 950°C.to 910°C. n-Phase stable</td></tr><tr><td>L07</td><td></td><td></td><td>500</td><td>473</td><td>from 1050°C. n-Phase stable</td></tr><tr><td></td><td>1100</td><td>900</td><td>200</td><td>442</td><td>from 1050°C.</td></tr><tr><td>L09</td><td>1100</td><td>950</td><td>150</td><td>488</td><td>n-Phase more stable than δ</td></tr><tr><td>L12</td><td>1250</td><td>none</td><td></td><td>530</td><td>n-Phase</td></tr></table>",
+        "bbox": [
+            503,
+            587,
+            859,
+            930
+        ],
+        "page_idx": 21
+    },
+    {
+        "type": "discarded",
+        "text": "US 2019/0040501 A1 ",
+        "bbox": [
+            124,
+            68,
+            295,
+            82
+        ],
+        "page_idx": 21
+    },
+    {
+        "type": "discarded",
+        "text": "Feb. 7,2019 ",
+        "bbox": [
+            756,
+            69,
+            856,
+            82
+        ],
+        "page_idx": 21
+    },
+    {
+        "type": "discarded",
+        "text": "5 ",
+        "bbox": [
+            486,
+            88,
+            496,
+            99
+        ],
+        "page_idx": 21
+    },
+    {
+        "type": "discarded",
+        "text": "TABLE 5-continued ",
+        "bbox": [
+            620,
+            137,
+            745,
+            148
+        ],
+        "page_idx": 21
+    },
+    {
+        "type": "table",
+        "img_path": "",
+        "table_caption": [],
+        "table_footnote": [],
+        "bbox": [
+            120,
+            159,
+            478,
+            651
+        ],
+        "page_idx": 22
+    },
+    {
+        "type": "table",
+        "img_path": "images/36f4bd5050e3a50cc3ddcc34f9884a0bc6e54240a63231bc775d4fd6259ce19f.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td colspan=\"6\">temperatures of the δ- and γ&#x27;-phases, hardness 10 HV (after precipitation-hardening heat treatment 980° C./1 h + 720° C./8 h + 620° C./8 h in accordance with the AMS 5662 standard for A718) and remarks on the n-phase for the test alloys.</td></tr><tr><td>δ-solv.</td><td>γ&#x27;-solv. T (°C.) T (°C.)</td><td>ΔT (δ − γ) (K)</td><td>Hardness 10HV</td><td>n-phase (calculated or observed)</td><td>Remarks on the</td></tr><tr><td>L13</td><td>1240</td><td>none</td><td></td><td>503</td><td>n-Phase primary, δ-phase primary, Laves</td></tr><tr><td>L15</td><td>1077</td><td>977</td><td>100</td><td>423</td><td>phase n-Phase stable</td></tr><tr><td>L16 L17</td><td>1070 1152</td><td>977 952</td><td>93 200</td><td>450 464</td><td>n-Phase stable n-Phase stable</td></tr><tr><td></td><td></td><td></td><td></td><td></td><td>from 1097°C.</td></tr><tr><td>L18</td><td>1157</td><td>977</td><td>180</td><td>452</td><td>n-Phase stable from 1047°C.</td></tr><tr><td>A718</td><td>1027</td><td>847</td><td>180</td><td>441</td><td>No n-phase</td></tr><tr><td>A718Plus</td><td>1027</td><td>976</td><td>51</td><td></td><td>n-Phase Nb3Al0.5Nb0.5</td></tr><tr><td>Waspaloy</td><td></td><td>1035</td><td></td><td></td><td>No n-phase, no Y&quot;phase</td></tr></table>",
+        "bbox": [
+            503,
+            150,
+            861,
+            445
+        ],
+        "page_idx": 22
+    },
+    {
+        "type": "table",
+        "img_path": "images/e8c2ce4ed0204206813876eaa4306a0ecbe150f428d113615cb7685312fbcedb.jpg",
+        "table_caption": [
+            "TABLE7 "
+        ],
+        "table_footnote": [],
+        "table_body": "<table><tr><td colspan=\"4\">Exemplary test alloys for the requirement of the Al/Ti ratios for inventive alloys.</td></tr><tr><td>Alloy</td><td>AV/Ti</td><td>Microstructural stability after 500 h at 800°C.</td><td>Notes</td></tr><tr><td>L04</td><td>2.02</td><td>Not satisfied</td><td>Exemplary alloy that does not satisfy the</td></tr><tr><td>V13 V15</td><td>7.15 8.28</td><td>Satisfi ed</td><td>requirement Exemplary alloy that satisfies the requirement, but at a</td></tr><tr><td></td><td></td><td></td><td>relatively high y&#x27;-solvus temperature</td></tr><tr><td>V16 V17</td><td>20.35 20.35</td><td>Satisfi ed Satisfi ed</td><td>Exemplary alloys that satisfy the requirement</td></tr></table>",
+        "bbox": [
+            504,
+            486,
+            861,
+            671
+        ],
+        "page_idx": 22
+    },
+    {
+        "type": "table",
+        "img_path": "images/3fd83a451195b7556eabe0c5bba9792e99678344e202cbbbaf1a1416613b3d2d.jpg",
+        "table_caption": [
+            "TABLE8 "
+        ],
+        "table_footnote": [],
+        "table_body": "<table><tr><td colspan=\"13\">Mechanical test values for A780 in comparison with A718 tested on upsetting-test specimens (solution-annealed + precipitation-hardened)</td><td rowspan=\"7\"></td></tr><tr><td></td><td colspan=\"4\"></td><td colspan=\"4\">Hot tension test at 650°C.</td><td colspan=\"4\">Hot tension test at 700°C.</td><td colspan=\"4\">Hot tension test at 750°C.</td></tr><tr><td></td><td colspan=\"4\"></td><td colspan=\"4\"></td><td colspan=\"4\"></td><td colspan=\"4\"></td></tr><tr><td></td><td>20°C. Rp0.2</td><td>20^C. Rm</td><td>20° C.</td><td>20° C.</td><td>650°C. 650°C.</td><td>650°C.</td><td></td><td>650°</td><td>700°C. 700°C.</td><td></td><td>700°C.</td><td>700° C.</td><td>750°C.750°C.</td><td></td><td>750° C.</td><td>750° C.</td></tr><tr><td></td><td>(MPa)</td><td></td><td>A5</td><td>Z Rp0.2</td><td>Rm</td><td></td><td>A5</td><td>Z</td><td>Rp0.2</td><td></td><td>A5</td><td>Z</td><td>Rp0.2</td><td>Rm</td><td>A5</td><td>Z</td></tr><tr><td>Batch</td><td></td><td>(MPa)</td><td>(%)</td><td>(%)</td><td>(MPa)</td><td>(MPa)</td><td>(%)</td><td>(%)</td><td>(MPa)</td><td>Rm (MPa)</td><td>(%)</td><td>(%)</td><td>(MPa)</td><td>(MPa)</td><td>(%)</td><td>(%)</td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>25</td><td>1179</td><td>1495</td><td>24</td><td>32</td><td>1046</td><td>1388</td><td>12</td><td>15</td><td>1000</td><td>1245</td><td>11</td><td>13</td><td>908</td><td>1075</td><td>15</td><td>13</td></tr><tr><td>26</td><td>1191</td><td>1521</td><td>26</td><td>37</td><td>1015</td><td>1292</td><td>12</td><td>17</td><td>984</td><td>1203</td><td>10</td><td>10</td><td>910</td><td>1057</td><td>6</td><td>8</td></tr><tr><td>27</td><td>1222</td><td>1556</td><td>23</td><td>38</td><td>1055</td><td>1363</td><td>11</td><td>14</td><td>1032</td><td>1255</td><td>8</td><td>9</td><td>943</td><td>1109</td><td>11</td><td>12</td></tr><tr><td>A718</td><td></td><td></td><td>16</td><td></td><td>1031</td><td>1231</td><td>23</td><td></td><td></td><td></td><td></td><td>72</td><td></td><td>865</td><td></td><td></td></tr><tr><td></td><td>1262</td><td>1494</td><td></td><td>29</td><td></td><td></td><td></td><td>59</td><td>958</td><td>1100</td><td>25</td><td></td><td>729</td><td></td><td></td><td>87</td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>34</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>(420159)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table>",
+        "bbox": [
+            137,
+            712,
+            862,
+            930
+        ],
+        "page_idx": 22
+    },
+    {
+        "type": "discarded",
+        "text": "US 2019/0040501 A1 ",
+        "bbox": [
+            124,
+            68,
+            295,
+            82
+        ],
+        "page_idx": 22
+    },
+    {
+        "type": "discarded",
+        "text": "Feb. 7, 2019 ",
+        "bbox": [
+            756,
+            69,
+            856,
+            83
+        ],
+        "page_idx": 22
+    },
+    {
+        "type": "discarded",
+        "text": "6 ",
+        "bbox": [
+            485,
+            88,
+            498,
+            99
+        ],
+        "page_idx": 22
+    },
+    {
+        "type": "discarded",
+        "text": "TABLE 6b ",
+        "bbox": [
+            267,
+            137,
+            334,
+            147
+        ],
+        "page_idx": 22
+    },
+    {
+        "type": "discarded",
+        "text": "TABLE 6b-continued ",
+        "bbox": [
+            619,
+            137,
+            750,
+            148
+        ],
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "[0067] By way of further description of the subject matter of the invention, FIGS. 6 and 7 are considered in conjunction with Table 8. ",
+        "bbox": [
+            122,
+            133,
+            478,
+            171
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "[0068] FIGS. 6 and 7 show diagrams containing data on strength tests at $2 0 ^ { \\circ } \\mathrm { C }$ , $6 5 0 ^ { \\circ } \\mathrm { C }$ , $7 0 0 ^ { \\circ } \\mathrm { C }$ and $7 5 0 ^ { \\mathrm { o } } \\mathrm { C }$ . on the new alloy (VDM Alloy 780 Premium), in this case batches 25, 26 and 27, in comparison with Alloy 718 (batch 420159) belonging to the prior art. From the diagrams it is evident that A 780, even when subjected to higher test parameters in hot tension tests, achieves higher $\\mathrm { R p } \\ 0 . 2$ strength values (measured on upsetting-test specimens in the precipitationhardened condition) than A 718. ",
+        "bbox": [
+            124,
+            171,
+            478,
+            285
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "[0069] Furthermore, it was observed that, in the creep and stress rupture test at $7 0 0 ^ { \\circ } \\mathrm { C }$ , A 780 also achieves the desired mechanical properties of creep elongation much smaller than $0 . 2 \\%$ as well as much longer times to failure of ${ > } 2 3$ h in the stress rupture testunder otherwise identical test conditions where these properties are achieved by A 718 only at test temperatures up to $6 5 0 ^ { \\circ } ~ \\mathrm { C }$ . ",
+        "bbox": [
+            122,
+            285,
+            478,
+            372
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "[0070] Table 8 shows the batches 25 to 27 indicated in FIGS. 6 and 7 in comparison with A 718. Here it is evident that especially the tensile strength Rm of A 780 batches 25 to 27 achieves higher values than A 718 at higher temperatures( $7 0 0 ^ { \\circ } \\mathrm { ~ C ~ }$ . and $7 5 0 ^ { \\circ } \\mathrm { ~ C } .$ ) in the hot tension tests. ",
+        "bbox": [
+            122,
+            373,
+            478,
+            435
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "What is claimed is: ",
+        "bbox": [
+            140,
+            436,
+            256,
+            449
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "1. A component of an aircraft turbine comprising an $\\mathrm { N i \\mathrm { \\mathop { - C o } } }$ alloy with 30 to $6 5 \\mathrm { \\textrm { w t } \\% }$ Ni, ${ > } 0$ to max. 10 wt $\\%$ Fe, ${ > } 1 2$ to $< 3 5$ wt $\\%$ Co, 13 to $2 3 \\mathrm { w t } \\% \\mathrm { C r } , $ 1 to 6 wt $\\%$ Mo, 4 to 6 wt $\\%$ $\\mathrm { N b } { + } \\mathrm { T a }$ , ${ > } 0$ to $< 3$ wt $\\%$ Al, ${ > } 0$ to $< 2$ wt $\\%$ Ti, ${ > } 0$ to max. 0.1 wt $\\%$ C, ${ > } 0$ to max. 0.03 wt $\\% \\mathrm { ~ P , > 0 ~ }$ to max. 0.01 wt $\\%$ Mg, ${ } > 0$ to max. 0.02 wt $\\%$ B, ${ > } 0$ to max. 0.1 wt $\\%$ Zr, 0 to 0.5 wt $\\%$ Cu, 0 to 0.015 wt $\\%$ S, 0 to 1.0 wt $\\%$ Mn, 0 to 1.0 wt $\\%$ Si, 0 to 0.01 wt $\\%$ Ca, 0 to 0.03 wt $\\% \\mathrm { ~ N ~ }$ ,d 0 to $0 . 0 2 \\mathrm { w t } \\% 0 ,$ 0 to $4 \\mathrm { w t } \\% \\mathrm { V } ,$ and 0 to 4 wt $\\%$ W, wherein the alloy satisfies the requirements and criteria listed below: ",
+        "bbox": [
+            122,
+            450,
+            478,
+            575
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "a) $9 0 0 ^ { \\circ } \\mathrm { C } . { \\leq } \\gamma ^ { \\prime }$ -solvus temperature ${ \\leq } 1 0 3 0 ^ { \\circ } \\mathrm { C }$ at3 at $\\% { \\leq } \\mathrm { A l } +$ Ti (at $\\% ) { \\leq } 5 . 6$ at $\\%$ as well as 11.5 at $\\% { \\leq } \\mathrm { C o } { \\leq } 3 5$ at $\\%$ ; b) stable microstructure after $5 0 0 \\mathrm { h }$ of aging annealing at $8 0 0 ^ { \\circ } \\mathrm { ~ C ~ }$ . and an Al/Ti ratio≥5 (on the basis of the contents in at $\\%$ ). ",
+        "bbox": [
+            137,
+            575,
+            478,
+            638
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "2. The component according to claim 1, wherein the alloy satisfies the requirement $9 4 5 ^ { \\circ }$ (cid:) ${ \\mathrm { C } } . { \\leq } { \\gamma } ^ { \\dagger }$ -solvus temperatures $1 0 0 0 ^ { \\circ } \\mathrm { ~ C ~ } _ { \\cdot } ^ { \\cdot }$ ",
+        "bbox": [
+            122,
+            640,
+            478,
+            676
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "3. The component according to claim 1, wherein the alloy has $\\Delta \\mathrm { T }$ (δ-γ) $8 0 \\mathrm { ~ K ~ }$ and $\\mathrm { A l } { + } \\mathrm { T i } { \\le } 4 . 7$ at $\\%$ as well as $\\mathrm { C o }$ contents ${ \\geq } 1 1 . 5$ at $\\%$ and ${ \\tt s } 3 5 $ at $\\%$ ",
+        "bbox": [
+            122,
+            679,
+            478,
+            715
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "4. The component according to claim 1, wherein the alloy has a temperature interval between δ-solvus and $\\gamma ^ { \\dagger }$ -solvus temperatures equal to or greater than $1 4 0 \\mathrm { K }$ and a $\\mathrm { C o }$ content $\\mathord { \\geq } 1 5$ at $\\%$ and ${ \\tt s } 3 5 $ at $\\%$ ",
+        "bbox": [
+            504,
+            133,
+            861,
+            181
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "5. The component according to claim 1, wherein the alloy has a $\\mathrm { T i }$ content of $\\mathtt { \\le 0 . 8 }$ at $\\%$ ",
+        "bbox": [
+            504,
+            183,
+            859,
+            207
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "6. The component according to claim 1, wherein the alloy has a Ti content of ${ \\le } 0 . 6 5$ at $\\%$ ",
+        "bbox": [
+            504,
+            208,
+            859,
+            231
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "7. The component according to claim 1, wherein the alloy has a content of $4 . 7 { \\le } \\mathrm { N b + } \\mathrm { T a } { \\le } 5 . 7$ wt $\\%$ . ",
+        "bbox": [
+            504,
+            233,
+            859,
+            256
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "8. The component according to claim 1, wherein the alloy has contents of Ti, Al and $\\mathrm { C o }$ in accordance with the following limit values: ",
+        "bbox": [
+            504,
+            257,
+            859,
+            295
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "0.05 at $\\% { \\leq } \\mathrm { T i } { \\leq } 0 . 5$ at $\\%$ , ",
+        "bbox": [
+            519,
+            295,
+            665,
+            308
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "3.6 at $\\% { \\leq } \\mathrm { A l } { \\leq } 4 . 6$ at $\\%$ ",
+        "bbox": [
+            521,
+            308,
+            658,
+            319
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "15 at $\\% { \\leq } \\mathrm { C o } { \\leq } 3 2$ at $\\%$ . ",
+        "bbox": [
+            521,
+            320,
+            653,
+            332
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "9. The component according to claim 1, wherein the component comprises a rotating turbine disk. ",
+        "bbox": [
+            504,
+            333,
+            861,
+            358
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "10. The component according to claim 1, wherein the component comprises a stationary turbine component. ",
+        "bbox": [
+            506,
+            358,
+            861,
+            383
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "11. An Ni—Co alloy with 30 to 65 wt $\\%$ Ni, ${ > } 0$ to max. 10 wt $\\%$ Fe, ${ \\tt > } 1 2$ to ${ < } 3 5$ wt $\\%$ Co, 13 to 23 wt $\\%$ Cr, 1 to 6 wt $\\%$ Mo, 4 to 6 wt $\\%$ $\\mathrm { N b } { + } \\mathrm { T a }$ , ${ > } 0$ to $< 3$ wt $\\%$ Al, ${ > } 0$ to $^ { < 2 }$ wt $\\%$ Ti, ${ > } 0$ to max. 0.1 wt $\\%$ C, ${ > } 0$ to max. 0.03 wt $\\%$ P, ${ > } 0$ to max. 0.01 wt $\\%$ Mg, ${ > } 0$ to max. 0.02 wt $\\%$ B, ${ > } 0$ to max.0.1 wt $\\%$ Zr, 0 to 0.5 wt $\\%$ Cu, 0 to 0.015 wt $\\%$ S,0 to 1.0 wt $\\%$ Mn, 0 to 1.0 wt $\\%$ Si, 0 to 0.01 wt $\\%$ Ca, 0 to $0 . 0 3 \\mathrm { \\ w t \\ \\% \\ N } .$ 0 to 0.02 wt $\\% 0$ , 0 to 4 wt $\\%$ V, and 0 to 4 wt $\\%$ W, wherein ",
+        "bbox": [
+            504,
+            383,
+            859,
+            496
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "the alloy satisfies the requirements and criteria listed below: a) $9 0 0 ^ { \\circ } \\mathrm { C } . { \\leq } \\gamma ^ { \\prime }$ -solvus temperatures $1 0 3 0 ^ { \\circ } \\mathrm { C }$ at3 at $\\% { \\leq } \\mathrm { A l } +$ Ti (at $\\% ) { \\leq } 5 . 6$ at $\\%$ as well as 11.5 at $\\% { \\leq } \\mathrm { C o } { \\leq } 3 5$ at $\\%$ ; b) stable microstructure after 500 h of aging annealing at $8 0 0 ^ { \\mathrm { o } }$ C. and an $\\mathrm { { A l / T i } }$ ratio≥5 (on the basis of the contents in at $\\%$ ). 12. Use of the alloy according to claim 11, in engine construction, in furnace construction, in boiler construction, in power-plant construction. 13. Use of the alloy according to claim 11, as a structural part in oil and gas extraction engineering. 14. Use of the alloy according to claim 11, as a structural part in stationary gas and steam turbines. 15. Use of the alloy according to claim 11, as a weld filler material. ",
+        "bbox": [
+            504,
+            497,
+            862,
+            698
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "discarded",
+        "text": "US 2019/0040501 A1 ",
+        "bbox": [
+            124,
+            68,
+            295,
+            82
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "discarded",
+        "text": "Feb. 7, 2019 ",
+        "bbox": [
+            756,
+            69,
+            856,
+            83
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "discarded",
+        "text": "\\*\\*\\*\\*\\* ",
+        "bbox": [
+            633,
+            705,
+            732,
+            714
+        ],
+        "page_idx": 23
+    },
+    {
+        "type": "discarded",
+        "text": "7 ",
+        "bbox": [
+            486,
+            87,
+            498,
+            99
+        ],
+        "page_idx": 23
+    }
+]
