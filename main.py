@@ -1,1127 +1,1094 @@
+#!/usr/bin/env python3
 """
-MCP server for extracting structured alloy datasets from MinerU-parsed patents.
-
-Design principle: parsing happens on the server side. The LLM receives
-ready-to-write dataset rows, not raw OCR text, so the context window stays small
-and the extraction is deterministic.
-
-Directory layout expected:
-    patents/
-        patent1/
-            patent_content_list.json   # MinerU output (required)
-            patent_middle.json         # optional, not read here
-            patent.md                  # optional, not read here
-        patent2/
-            ...
+LLM Analyzer JSON — сбор данных о сплавах
+Выход: datasets/all_alloys.json
+Строгая структура с сохранением всех полей (null если данных нет)
 """
 
-from __future__ import annotations
-
-import csv
+import asyncio
 import json
+import os
 import re
-from html.parser import HTMLParser
+import sys
+import shutil
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import List, Dict, Optional, Tuple, Any, Set
 
-from fastmcp import FastMCP
+import httpx
+from openai import AsyncOpenAI, APIError, RateLimitError
+from dotenv import load_dotenv
 
-mcp = FastMCP("PatentServer")
+load_dotenv()
 
 PATENTS_DIR = Path("patents")
-OUTPUT_DIR = Path("datasets")  # CSV files are written here
+CLOUD_DIR = Path("patents_cloud")
+OUTPUT_DIR = Path("datasets")
+OUTPUT_DIR.mkdir(exist_ok=True)
+CLOUD_DIR.mkdir(exist_ok=True)
 
+OUTPUT_JSON = OUTPUT_DIR / "all_alloys.json"
+PROGRESS_JSON = OUTPUT_DIR / "progress.json"
 
-# ---------------------------------------------------------------------------
-# Russian to element symbol mapping
-# ---------------------------------------------------------------------------
+_LLM_SEMAPHORE = asyncio.Semaphore(3)
+MAX_RETRIES = 3
+RETRY_DELAY = 5
 
-RUSSIAN_ELEMENTS = {
-    'углерод': 'C',
-    'хром': 'Cr',
-    'кобальт': 'Co',
-    'вольфрам': 'W',
-    'молибден': 'Mo',
-    'титан': 'Ti',
-    'алюминий': 'Al',
-    'ниобий': 'Nb',
-    'тантал': 'Ta',
-    'гафний': 'Hf',
-    'рений': 'Re',
-    'бор': 'B',
-    'цирконий': 'Zr',
-    'магний': 'Mg',
-    'железо': 'Fe',
-    'марганец': 'Mn',
-    'кремний': 'Si',
-    'никель': 'Ni',
-    'церий': 'Ce',
-    'медь': 'Cu',
-    'ванадий': 'V',
-    'азот': 'N',
-    'кислород': 'O',
-    'фосфор': 'P',
-    'сера': 'S',
+_llm_client: Optional[AsyncOpenAI] = None
+
+# Категории сплавов по папкам
+ALLOY_CATEGORIES = {
+    "nickel_alloys": "Ni",
+    "aluminum": "Al",
+    "titanium_alloys": "Ti",
+    "copper_alloys": "Cu",
+    "steel_alloys": "Fe",
+    "magnesium_alloys": "Mg",
+    "cobalt_alloys": "Co"
 }
 
-ENGLISH_ELEMENTS = {
-    'carbon': 'C',
-    'chromium': 'Cr',
-    'cobalt': 'Co',
-    'tungsten': 'W',
-    'molybdenum': 'Mo',
-    'titanium': 'Ti',
-    'aluminum': 'Al',
-    'aluminium': 'Al',
-    'niobium': 'Nb',
-    'tantalum': 'Ta',
-    'hafnium': 'Hf',
-    'rhenium': 'Re',
-    'boron': 'B',
-    'zirconium': 'Zr',
-    'magnesium': 'Mg',
-    'iron': 'Fe',
-    'manganese': 'Mn',
-    'silicon': 'Si',
-    'nickel': 'Ni',
-    'cerium': 'Ce',
-    'copper': 'Cu',
-    'vanadium': 'V',
-    'nitrogen': 'N',
-    'oxygen': 'O',
-    'phosphorus': 'P',
-    'sulfur': 'S',
-}
 
-ELEMENT_MAP = {**RUSSIAN_ELEMENTS, **ENGLISH_ELEMENTS}
+# ===========================================================================
+# ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ ОЧИСТКИ ИМЕН ФАЙЛОВ
+# ===========================================================================
+
+def clean_filename(filename: str) -> str:
+    """Очищает имя файла от недопустимых символов для Windows"""
+    if not filename:
+        return "unknown"
+
+    # Заменяем недопустимые символы на _
+    # Windows запрещает: < > : " / \ | ? * \n \r \t
+    invalid_chars = r'[<>:"/\\|?*\n\r\t]'
+    cleaned = re.sub(invalid_chars, '_', filename)
+
+    # Убираем пробелы в начале и конце
+    cleaned = cleaned.strip()
+
+    # Если имя пустое или состоит только из точек
+    if not cleaned or cleaned == '.' or cleaned == '..':
+        cleaned = "unknown"
+
+    # Ограничиваем длину имени (Windows - 255 символов)
+    if len(cleaned) > 200:
+        name, ext = os.path.splitext(cleaned)
+        cleaned = name[:200] + ext
+
+    return cleaned
 
 
-def _russian_to_element(russian_name: str) -> str:
-    """Convert Russian or English element name to symbol."""
-    name = russian_name.lower().strip()
-    # Remove common prefixes like numbers and dashes
-    name = re.sub(r'^\d+\s*', '', name)
-    name = re.sub(r'^[-–]\s*', '', name)
-    return ELEMENT_MAP.get(name, name)
+# ===========================================================================
+# YANDEX DISK CLIENT
+# ===========================================================================
 
+class YandexDiskClient:
+    API_BASE = "https://cloud-api.yandex.net/v1/disk"
 
-# ---------------------------------------------------------------------------
-# HTML table parsing
-# ---------------------------------------------------------------------------
+    def __init__(self, token: Optional[str] = None):
+        self.token = token or os.getenv("YANDEX_DISK_TOKEN")
+        if not self.token:
+            raise ValueError("YANDEX_DISK_TOKEN не найден в .env")
+        self.headers = {
+            "Authorization": f"OAuth {self.token}",
+            "Accept": "application/json"
+        }
+        self.api_client = httpx.AsyncClient(headers=self.headers, timeout=60.0)
+        import requests
+        self.sync_session = requests.Session()
+        self.sync_session.headers.update(self.headers)
 
-class _TableParser(HTMLParser):
-    """Parses a single <table>...</table> fragment into a list of rows (list[list[str]])."""
+    async def close(self):
+        await self.api_client.aclose()
+        self.sync_session.close()
 
-    def __init__(self) -> None:
-        super().__init__()
-        self.rows: List[List[str]] = []
-        self._row: List[str] = []
-        self._cell: List[str] = []
-        self._in_cell = False
+    async def list_folder(self, disk_path: str) -> Tuple[List[Dict], List[Dict]]:
+        url = f"{self.API_BASE}/resources"
+        params = {"path": disk_path, "limit": 1000, "sort": "name"}
+        for attempt in range(MAX_RETRIES):
+            try:
+                resp = await self.api_client.get(url, params=params)
+                resp.raise_for_status()
+                data = resp.json()
+                items = data.get("_embedded", {}).get("items", [])
+                return [i for i in items if i.get("type") == "dir"], [i for i in items if i.get("type") == "file"]
+            except Exception as e:
+                print(f"   ⚠️ Ошибка чтения папки Я.Диска (попытка {attempt + 1}): {e}")
+                if attempt < MAX_RETRIES - 1:
+                    await asyncio.sleep(RETRY_DELAY)
+        return [], []
 
-    def handle_starttag(self, tag: str, attrs) -> None:
-        if tag == "tr":
-            self._row = []
-        elif tag in ("td", "th"):
-            self._in_cell = True
-            self._cell = []
-
-    def handle_endtag(self, tag: str) -> None:
-        if tag in ("td", "th"):
-            self._row.append("".join(self._cell).strip())
-            self._in_cell = False
-        elif tag == "tr":
-            if self._row:
-                self.rows.append(self._row)
-
-    def handle_data(self, data: str) -> None:
-        if self._in_cell:
-            self._cell.append(data)
-
-
-def _parse_html_table(html: str) -> List[List[str]]:
-    p = _TableParser()
-    p.feed(html)
-    return p.rows
-
-
-# ---------------------------------------------------------------------------
-# Value normalization
-# ---------------------------------------------------------------------------
-
-def _clean_cell(s: str) -> str:
-    return re.sub(r"\s+", " ", s).strip()
-
-
-def _parse_numeric(s: str) -> Optional[float]:
-    """Extract a single float from a cell like '18.17', '1.2-1.6%', 'max. 0.08', '≥1034MPa'."""
-    s = _clean_cell(s)
-    if not s:
-        return None
-    # ranges like 17-21% -> take midpoint
-    m = re.match(r"^\s*(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)", s)
-    if m:
-        return (float(m.group(1)) + float(m.group(2))) / 2
-    m = re.search(r"(-?\d+(?:\.\d+)?)", s)
-    return float(m.group(1)) if m else None
-
-
-def _parse_range(s: str) -> Optional[Tuple[Optional[float], Optional[float]]]:
-    """Return (low, high) for range strings. 'max. 0.08' -> (None, 0.08). '17-21%' -> (17, 21)."""
-    s = _clean_cell(s)
-    if not s:
-        return None
-    if re.search(r"max\.?", s, re.I):
-        v = _parse_numeric(s)
-        return (None, v) if v is not None else None
-    m = re.match(r"^\s*(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)", s)
-    if m:
-        return (float(m.group(1)), float(m.group(2)))
-    v = _parse_numeric(s)
-    return (v, v) if v is not None else None
-
-
-# ---------------------------------------------------------------------------
-# MinerU content_list loading and table selection
-# ---------------------------------------------------------------------------
-
-def _load_content_list(patent_dir: Path) -> List[Dict[str, Any]]:
-    path = patent_dir / "patent_content_list.json"
-    if not path.exists():
-        cands = list(patent_dir.glob("*_content_list.json"))
-        if not cands:
-            raise FileNotFoundError(f"No content_list.json in {patent_dir}")
-        path = cands[0]
-    with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def _load_markdown(patent_dir: Path) -> Optional[str]:
-    """Load patent.md file if it exists."""
-    md_path = patent_dir / "patent.md"
-    if not md_path.exists():
-        cands = list(patent_dir.glob("*.md"))
-        if not cands:
+    async def get_download_link(self, disk_path: str) -> Optional[str]:
+        url = f"{self.API_BASE}/resources/download"
+        params = {"path": disk_path}
+        try:
+            resp = await self.api_client.get(url, params=params)
+            resp.raise_for_status()
+            return resp.json().get("href")
+        except Exception as e:
+            print(f"   ⚠️ Не удалось получить ссылку для {disk_path}: {e}")
             return None
-        md_path = cands[0]
+
+    def _download_sync(self, file_url: str, local_path: Path) -> bool:
+        try:
+            local_path.parent.mkdir(parents=True, exist_ok=True)
+            with self.sync_session.get(file_url, stream=True, timeout=60) as resp:
+                resp.raise_for_status()
+                with open(local_path, "wb") as f:
+                    for chunk in resp.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+            return True
+        except Exception as e:
+            print(f"   ⚠️ Ошибка скачивания {local_path.name}: {str(e)[:80]}")
+            return False
+
+    async def download_file(self, file_url: str, local_path: Path) -> bool:
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(None, self._download_sync, file_url, local_path)
+
+    async def download_patent_folder(self, disk_path: str, local_folder: Path) -> List[Path]:
+        downloaded: List[Path] = []
+        url = f"{self.API_BASE}/resources"
+        params = {"path": disk_path, "limit": 1000}
+        try:
+            resp = await self.api_client.get(url, params=params)
+            resp.raise_for_status()
+            items = resp.json().get("_embedded", {}).get("items", [])
+        except Exception as e:
+            print(f"   ❌ Не удалось прочитать {disk_path}: {e}")
+            return downloaded
+
+        for item in items:
+            item_name = item["name"]
+            item_path = item["path"]
+
+            # Очищаем имя от недопустимых символов
+            item_name_clean = clean_filename(item_name)
+            local_file_path = local_folder / item_name_clean
+
+            if item["type"] == "dir":
+                # Рекурсивно скачиваем подпапки
+                try:
+                    if not local_file_path.exists():
+                        local_file_path.mkdir(parents=True, exist_ok=True)
+                    sub_downloaded = await self.download_patent_folder(item_path, local_file_path)
+                    downloaded.extend(sub_downloaded)
+                except Exception as e:
+                    print(f"      ⚠️ Ошибка при создании папки {item_name_clean}: {e}")
+                    continue
+
+            elif item["type"] == "file":
+                try:
+                    download_url = await self.get_download_link(item_path)
+                    if download_url:
+                        if await self.download_file(download_url, local_file_path):
+                            downloaded.append(local_file_path)
+                            print(f"      ⬇️  {item_name_clean[:50]}{'...' if len(item_name_clean) > 50 else ''}")
+                except Exception as e:
+                    print(f"      ⚠️ Ошибка скачивания файла {item_name_clean}: {e}")
+                    continue
+
+        return downloaded
+
+
+# ===========================================================================
+# DEEPSEEK CLIENT
+# ===========================================================================
+
+def get_client() -> AsyncOpenAI:
+    global _llm_client
+    if _llm_client is None:
+        api_key = os.getenv("DEEPSEEK_API_KEY")
+        base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com").rstrip("/")
+        if not api_key:
+            print("\n❌ DEEPSEEK_API_KEY не найден в .env")
+            sys.exit(1)
+        _llm_client = AsyncOpenAI(api_key=api_key, base_url=base_url, timeout=120.0)
+        print("✅ DeepSeek API инициализирован")
+    return _llm_client
+
+
+# ===========================================================================
+# ЧТЕНИЕ ФАЙЛОВ ПАТЕНТА
+# ===========================================================================
+
+def read_patent_files(patent_path: Path) -> Tuple[str, List[str]]:
+    all_text, files_read = "", []
+    for file_path in patent_path.rglob("*"):
+        if not file_path.is_file() or file_path.suffix.lower() not in ['.txt', '.md', '.csv', '.json', '.xml', '.html']:
+            continue
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except UnicodeDecodeError:
+            try:
+                with open(file_path, 'r', encoding='cp1251') as f:
+                    content = f.read()
+            except Exception:
+                continue
+        except Exception:
+            continue
+        rel = file_path.relative_to(patent_path)
+        all_text += f"\n\n{'=' * 60}\nФАЙЛ: {rel}\n{'=' * 60}\n\n{content}"
+        files_read.append(str(rel))
+    return all_text, files_read
+
+
+# ===========================================================================
+# ПАРСЕР ЗНАЧЕНИЙ
+# ===========================================================================
+
+def parse_value(val: Any) -> Optional[float]:
+    """Парсит одиночное значение в число"""
+    if val is None:
+        return None
+
+    if isinstance(val, (int, float)):
+        if val > 0:
+            return float(val)
+        return None
+
+    val_str = str(val).strip().replace(',', '.')
+
+    # Убираем единицы измерения
+    val_str = re.sub(r'\s*(мм|mm|cm|м|m|км|km|МПа|MPa|кгс|°C|°F|K|град|°)$', '', val_str, flags=re.IGNORECASE)
+
     try:
-        with md_path.open("r", encoding="utf-8") as f:
-            return f.read()
-    except:
-        return None
+        f = float(val_str)
+        if f > 0:
+            return round(f, 6)
+    except ValueError:
+        pass
 
-
-def _find_table_by_caption(items: List[Dict[str, Any]], pattern: str) -> Optional[List[List[str]]]:
-    rx = re.compile(pattern, re.I)
-    for it in items:
-        if it.get("type") != "table":
-            continue
-        caps = it.get("table_caption") or []
-        if any(rx.search(c or "") for c in caps):
-            return _parse_html_table(it.get("table_body", ""))
     return None
 
 
-def _find_composition_tables(items: List[Dict[str, Any]]) -> List[List[List[str]]]:
-    """Tables whose first row header looks like Alloy | Ni | Fe | Cr | Mo | Ti | Al | Nb+Ta | Co."""
-    results = []
-    for it in items:
-        if it.get("type") != "table":
-            continue
-        rows = _parse_html_table(it.get("table_body", ""))
-        if not rows:
-            continue
-        header = next((r for r in rows if any(c.strip() for c in r)), None)
-        if not header:
-            continue
-        header_clean = [_clean_cell(c).lower() for c in header]
-        if "alloy" in header_clean and "ni" in header_clean and "cr" in header_clean:
-            results.append(rows)
-    return results
-
-
-def _find_atomic_table(items: List[Dict[str, Any]]) -> Optional[List[List[str]]]:
-    for it in items:
-        if it.get("type") != "table":
-            continue
-        caps = it.get("table_caption") or []
-        if any("6a" in (c or "") for c in caps):
-            return _parse_html_table(it.get("table_body", ""))
-        rows = _parse_html_table(it.get("table_body", ""))
-        for r in rows:
-            hdr = [_clean_cell(c).lower().replace(" ", "") for c in r]
-            if "al/ti" in hdr and "al+ti" in hdr:
-                return rows
-    return None
-
-
-def _find_solvus_table(items: List[Dict[str, Any]]) -> Optional[List[List[str]]]:
-    """Table 6b — has columns delta-solv, gamma-solv, dT, 10HV, n-phase."""
-    for it in items:
-        if it.get("type") != "table":
-            continue
-        body = it.get("table_body", "")
-        low = body.lower()
-        if ("δ-solv" in body or "d-solv" in low or "δ-solv." in body) \
-                and ("γ" in body or "y'-solv" in low or "gamma" in low) \
-                and "10hv" in low:
-            return _parse_html_table(body)
-    return None
-
-
-def _find_mechanical_a780_table(items: List[Dict[str, Any]]) -> Optional[List[List[str]]]:
-    for it in items:
-        if it.get("type") != "table":
-            continue
-        caps = it.get("table_caption") or []
-        if any(re.search(r"table\s*8", c or "", re.I) for c in caps):
-            return _parse_html_table(it.get("table_body", ""))
-    return None
-
-
-# ---------------------------------------------------------------------------
-# Metadata extraction (supports both US and RU patents)
-# ---------------------------------------------------------------------------
-
-def _extract_metadata_us(items: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Extract metadata from US-style patent cover page."""
-    md: Dict[str, Any] = {
-        "patent_number": None,
-        "title": None,
-        "authors": [],
-        "applicant": None,
-        "assignee": None,
-        "country": None,
-        "filing_date": None,
-        "publication_date": None,
-        "priority_date": None,
-    }
-    texts = [it.get("text", "") for it in items if it.get("type") == "text" and it.get("page_idx") == 0]
-    joined = "\n".join(texts)
-
-    m = re.search(r"Pub\.\s*No\.\s*:\s*([A-Z]{2}\s*\d{4}/\d+\s*[A-Z0-9]*)", joined)
-    if m:
-        md["patent_number"] = re.sub(r"\s+", "", m.group(1))
-
-    m = re.search(r"Pub\.\s*Date\s*:?\s*([A-Za-z]+\.?\s*\d{1,2},\s*\d{4})", joined)
-    if m:
-        md["publication_date"] = m.group(1).strip()
-
-    m = re.search(r"Filed\s*:?\s*([A-Za-z]+\.?\s*\d{1,2},\s*\d{4})", joined)
-    if m:
-        md["filing_date"] = m.group(1).strip()
-
-    m = re.search(r"Foreign Application Priority Data[^\n]*\n([A-Za-z]+\.?\s*\d{1,2},\s*\d{4})", joined)
-    if m:
-        md["priority_date"] = m.group(1).strip()
-
-    m = re.search(r"\(54\)\s*([A-Z][A-Z \-]+?)(?:\n|\s{2,})", joined)
-    if m:
-        md["title"] = m.group(1).strip()
-    else:
-        if len(texts) >= 2 and re.match(r"^[A-Z][A-Z \-]+$", _clean_cell(texts[1])):
-            md["title"] = _clean_cell(texts[1])
-
-    m = re.search(r"\(71\)\s*Applicant\s*:\s*([^\n]+)", joined)
-    if m:
-        md["applicant"] = _clean_cell(m.group(1))
-
-    m = re.search(r"\(73\)\s*Assignee\s*:\s*([^\n]+)", joined)
-    if m:
-        md["assignee"] = _clean_cell(m.group(1))
-
-    m = re.search(r"\(72\)\s*Inventors?\s*:\s*(.+?)(?=\(73\)|$)", joined, re.S)
-    if m:
-        inv_raw = re.sub(r"\s+", " ", m.group(1))
-        authors = []
-        for piece in inv_raw.split(";"):
-            piece = piece.strip().strip(",")
-            if piece:
-                authors.append(piece)
-        md["authors"] = authors
-
-    m = re.search(r"\(([A-Z]{2})\)", md.get("applicant") or "")
-    if m:
-        md["country"] = m.group(1)
-    elif md["patent_number"] and md["patent_number"].startswith("US"):
-        md["country"] = "US"
-
-    return md
-
-
-def _extract_metadata_ru(md_text: str) -> Dict[str, Any]:
-    """Extract metadata from Russian patent markdown."""
-    md: Dict[str, Any] = {
-        "patent_number": None,
-        "title": None,
-        "authors": [],
-        "applicant": None,
-        "assignee": None,
-        "country": "RU",
-        "filing_date": None,
-        "publication_date": None,
-        "priority_date": None,
-    }
-    
-    # Patent number
-    m = re.search(r'RU\s*(\d{7})', md_text)
-    if m:
-        md["patent_number"] = f"RU{m.group(1)}C1"
-    
-    # Title (usually in all caps after the number)
-    m = re.search(r'\(54\)\s*(.+?)(?:\n|$)', md_text)
-    if m:
-        md["title"] = m.group(1).strip()
-    
-    # Authors (after "Автор(ы):")
-    m = re.search(r'\(72\)\s*Автор\(ы\):\s*(.+?)(?=\(73\)|$)', md_text, re.DOTALL)
-    if m:
-        authors_text = m.group(1).strip()
-        authors = [a.strip() for a in re.split(r'[;,]', authors_text) if a.strip()]
-        md["authors"] = authors
-    
-    # Applicant (after "Патентообладатель(и):")
-    m = re.search(r'\(73\)\s*Патентообладатель\(и\):\s*(.+?)(?=\n\n|\Z)', md_text, re.DOTALL)
-    if m:
-        md["applicant"] = m.group(1).strip()
-    
-    # Dates
-    m = re.search(r'Заявка:\s*\d+,\s*(\d{2}\.\d{2}\.\d{4})', md_text)
-    if m:
-        md["filing_date"] = m.group(1)
-    
-    m = re.search(r'Опубликовано:\s*(\d{2}\.\d{2}\.\d{4})', md_text)
-    if m:
-        md["publication_date"] = m.group(1)
-    
-    return md
-
-
-def _extract_metadata(items: List[Dict[str, Any]], md_text: Optional[str] = None) -> Dict[str, Any]:
-    """Extract metadata with fallback to markdown for RU patents."""
-    md = _extract_metadata_us(items)
-    
-    if not md.get("patent_number") and md_text:
-        ru_md = _extract_metadata_ru(md_text)
-        if ru_md.get("patent_number"):
-            md.update(ru_md)
-    
-    return md
-
-
-# ---------------------------------------------------------------------------
-# Improved Markdown composition parser for Russian patents
-# ---------------------------------------------------------------------------
-
-def _parse_md_composition_blocks_improved(md_text: str) -> Dict[str, Dict[str, Any]]:
+def parse_range(val: Any) -> Optional[Dict[str, float]]:
     """
-    Parse composition blocks from Russian patent markdown.
-    Returns dict with block names and their compositions.
+    Парсит строку/число в диапазон {"min": float, "max": float}.
+    Поддерживает: 5.0, "5.0", "5.0-5.5", "5.0÷5.5", "<0.5", "≤0.02"
     """
-    blocks = {}
-    lines = md_text.split('\n')
-    
-    current_block = {}
-    current_name = None
-    in_block = False
-    
-    # Pattern for element lines - matches: "Углерод - 0,06-0,13" or "Хром - 8,0-12,0"
-    # Also matches lines with numbers at start: "10 Вольфрам - 5,2-5,9"
-    element_pattern = re.compile(
-        r'^(?:\d+\s+)?'  # optional leading number
-        r'(Углерод|Хром|Кобальт|Вольфрам|Молибден|Титан|Алюминий|Ниобий|Тантал|'
-        r'Гафний|Рений|Бор|Цирконий|Магний|Железо|Марганец|Кремний|Никель|Церий)'
-        r'\s*[-–]\s*(\d+(?:[.,]\d+)?)(?:\s*[-–]\s*(\d+(?:[.,]\d+)?))?',
-        re.IGNORECASE
-    )
-    
-    # Pattern for block headers (e.g., "Пример", "Предлагается сплав")
-    block_headers = ['пример', 'предлагается', 'прототип', 'известен', 'состава']
-    
-    i = 0
-    while i < len(lines):
-        line = lines[i].strip()
-        
-        # Check if this is a block header
-        line_lower = line.lower()
-        if any(header in line_lower for header in block_headers):
-            # Save previous block
-            if current_block and current_name:
-                blocks[current_name] = current_block
-            # Start new block
-            current_block = {}
-            current_name = line[:50]  # Use first 50 chars as name
-            in_block = True
-            i += 1
-            continue
-        
-        # Parse element lines
-        match = element_pattern.match(line)
-        if match:
-            in_block = True
-            element_ru = match.group(1)
-            element = _russian_to_element(element_ru)
-            low_str = match.group(2).replace(',', '.')
-            high_str = match.group(3).replace(',', '.') if match.group(3) else None
-            
-            if high_str:
-                # Range - store as dict with min/max
-                current_block[element] = {
-                    'value': (float(low_str) + float(high_str)) / 2,  # midpoint
-                    'min': float(low_str),
-                    'max': float(high_str),
-                    'type': 'range'
-                }
-            else:
-                # Exact value
-                current_block[element] = {
-                    'value': float(low_str),
-                    'type': 'exact'
-                }
-        
-        # If we see "Никель - остальное", close the block
-        if 'никель' in line_lower and 'остальное' in line_lower:
-            if current_block and current_name:
-                blocks[current_name] = current_block
-                current_block = {}
-                current_name = None
-                in_block = False
-        
-        i += 1
-    
-    # Save last block
-    if current_block and current_name:
-        blocks[current_name] = current_block
-    
-    return blocks
-
-
-def _parse_mechanical_properties_ru(md_text: str) -> Dict[str, Dict[str, Any]]:
-    """Parse mechanical properties table from Russian patent."""
-    mech_data = {}
-    
-    # Ищем таблицу с механическими свойствами
-    # Таблица имеет вид:
-    # | Сплав | σB | σ0,2 | δ | ψ | σ0,2/100 | СРТУ |
-    # | Заявляемый | 1635 | 1189 | 12,6 | 16,3 | 998 | 1,5·10⁻⁴ |
-    # | Прототип | 1420 | 1088 | 7,5 | 7,8 | 830 | 8,2·10⁻⁴ |
-    
-    # Находим строку с заголовками
-    header_pattern = r'σ[БB]\s*.*?σ0[,，]2\s*.*?δ\s*.*?ψ\s*.*?σ0[,，]2/\d+\s*.*?СРТУ'
-    
-    # Находим строки с числами после заголовка
-    value_pattern = re.compile(
-        r'(?:Заявляемый|Предлагаемый|Прототип)\s*\|?\s*(\d+(?:[.,]\d+)?)\s*\|?\s*(\d+(?:[.,]\d+)?)\s*\|?\s*(\d+(?:[.,]\d+)?)\s*\|?\s*(\d+(?:[.,]\d+)?)\s*\|?\s*(\d+(?:[.,]\d+)?)\s*\|?\s*([\d.,]+(?:[·×][\d⁻]+)?)',
-        re.IGNORECASE
-    )
-    
-    # Альтернативный паттерн для простых таблиц
-    simple_pattern = re.compile(
-        r'(\d+)[,\s]+(\d+)[,\s]+(\d+(?:[.,]\d+)?)[,\s]+(\d+(?:[.,]\d+)?)[,\s]+(\d+)[,\s]+([\d.,]+(?:[·×][\d⁻]+)?)',
-        re.IGNORECASE
-    )
-    
-    # Ищем секцию с таблицей
-    # В вашем .md файле таблица находится после "представлены в таблице"
-    table_section = re.search(r'представлены в таблице.*?(?=\n\n|\Z)', md_text, re.DOTALL | re.IGNORECASE)
-    if not table_section:
-        return mech_data
-    
-    table_text = table_section.group(0)
-    
-    # Ищем значения для заявляемого сплава
-    proposed_match = re.search(r'Заявляемый[^\d]*(\d+(?:[.,]\d+)?)[^\d]*(\d+(?:[.,]\d+)?)[^\d]*(\d+(?:[.,]\d+)?)[^\d]*(\d+(?:[.,]\d+)?)[^\d]*(\d+(?:[.,]\d+)?)[^\d]*([\d.,]+(?:[·×][\d⁻]+)?)', table_text, re.IGNORECASE)
-    if proposed_match:
-        mech_data['proposed_alloy'] = {
-            'UTS_MPa': float(proposed_match.group(1).replace(',', '.')),
-            'YS_MPa': float(proposed_match.group(2).replace(',', '.')),
-            'elongation_pct': float(proposed_match.group(3).replace(',', '.')),
-            'reduction_area_pct': float(proposed_match.group(4).replace(',', '.')),
-            'stress_rupture_100h_MPa': float(proposed_match.group(5).replace(',', '.')),
-            'test_temperature_C': 650,
-        }
-        # Парсим СРТУ (может быть в формате 1,5·10⁻⁴)
-        creep_str = proposed_match.group(6).replace(',', '.')
-        if '·10' in creep_str:
-            parts = creep_str.split('·10')
-            base = float(parts[0])
-            exp_str = parts[1].replace('⁻', '-').replace('⁴', '4').replace('⁵', '5')
-            mech_data['proposed_alloy']['creep_rate'] = base * (10 ** int(exp_str))
-        else:
-            mech_data['proposed_alloy']['creep_rate'] = float(creep_str)
-    
-    # Ищем значения для прототипа
-    proto_match = re.search(r'Прототип[^\d]*(\d+(?:[.,]\d+)?)[^\d]*(\d+(?:[.,]\d+)?)[^\d]*(\d+(?:[.,]\d+)?)[^\d]*(\d+(?:[.,]\d+)?)[^\d]*(\d+(?:[.,]\d+)?)[^\d]*([\d.,]+(?:[·×][\d⁻]+)?)', table_text, re.IGNORECASE)
-    if proto_match:
-        mech_data['prototype'] = {
-            'UTS_MPa': float(proto_match.group(1).replace(',', '.')),
-            'YS_MPa': float(proto_match.group(2).replace(',', '.')),
-            'elongation_pct': float(proto_match.group(3).replace(',', '.')),
-            'reduction_area_pct': float(proto_match.group(4).replace(',', '.')),
-            'stress_rupture_100h_MPa': float(proto_match.group(5).replace(',', '.')),
-            'test_temperature_C': 650,
-        }
-        creep_str = proto_match.group(6).replace(',', '.')
-        if '·10' in creep_str:
-            parts = creep_str.split('·10')
-            base = float(parts[0])
-            exp_str = parts[1].replace('⁻', '-').replace('⁴', '4')
-            mech_data['prototype']['creep_rate'] = base * (10 ** int(exp_str))
-        else:
-            mech_data['prototype']['creep_rate'] = float(creep_str)
-    
-    return mech_data
-
-
-def _build_composition_wt(items: List[Dict[str, Any]], md_text: Optional[str] = None) -> Dict[str, Dict[str, Optional[float]]]:
-    """Merge all composition tables (wt%) across the patent. Falls back to markdown if no tables found."""
-    merged: Dict[str, Dict[str, Optional[float]]] = {}
-    
-    # Try HTML tables first
-    for rows in _find_composition_tables(items):
-        header_idx = None
-        for i, r in enumerate(rows):
-            if any(_clean_cell(c).lower() == "alloy" for c in r):
-                header_idx = i
-                break
-        if header_idx is None:
-            continue
-        header = [_clean_cell(c) for c in rows[header_idx]]
-        data = rows[header_idx + 1:]
-        elem_cols = [c for c in header[1:]]
-        for r in data:
-            if not r:
-                continue
-            name = _clean_cell(r[0])
-            if not name or name.lower() in ("alloy", "element"):
-                continue
-            entry = merged.setdefault(name, {})
-            for i, val in enumerate(r[1:], start=1):
-                if i - 1 >= len(elem_cols):
-                    continue
-                elem = elem_cols[i - 1]
-                v = _clean_cell(val)
-                if v.lower() == "rest":
-                    entry[elem] = "rest"
-                else:
-                    num = _parse_numeric(v)
-                    entry[elem] = num
-    
-    # If no tables found or tables have garbage (translit), try markdown fallback
-    if (not merged or len(merged) == 0) and md_text:
-        md_blocks = _parse_md_composition_blocks_improved(md_text)
-        for block_name, block_data in md_blocks.items():
-            alloy_name = f"RU_{block_name[:30].replace(' ', '_')}"
-            entry = {}
-            for element, data in block_data.items():
-                if isinstance(data, dict) and 'value' in data:
-                    entry[element] = data['value']
-                elif isinstance(data, (int, float)):
-                    entry[element] = data
-            if entry:
-                merged[alloy_name] = entry
-        
-        # Also try to extract from explicit example (Углерод - 0,09 etc.)
-        example_pattern = re.compile(
-            r'Углерод\s*[-–]\s*(\d+(?:[.,]\d+)?).*?'
-            r'Хром\s*[-–]\s*(\d+(?:[.,]\d+)?).*?'
-            r'Кобальт\s*[-–]\s*(\d+(?:[.,]\d+)?)',
-            re.DOTALL | re.IGNORECASE
-        )
-        example_match = example_pattern.search(md_text)
-        if example_match:
-            example_composition = {}
-            # Parse all elements from example section
-            example_section = re.search(r'Пример.*?Углерод.*?Никель.*?остальное', md_text, re.DOTALL | re.IGNORECASE)
-            if example_section:
-                for element_ru, element_sym in RUSSIAN_ELEMENTS.items():
-                    pattern = re.compile(rf'{element_ru}\s*[-–]\s*(\d+(?:[.,]\d+)?)', re.IGNORECASE)
-                    match = pattern.search(example_section.group(0))
-                    if match:
-                        example_composition[element_sym] = float(match.group(1).replace(',', '.'))
-                if example_composition:
-                    merged['RU_example_alloy'] = example_composition
-    
-    return merged
-
-
-def _build_composition_at(items: List[Dict[str, Any]]) -> Dict[str, Dict[str, Optional[float]]]:
-    rows = _find_atomic_table(items)
-    if not rows:
-        return {}
-    header_idx = None
-    for i, r in enumerate(rows):
-        if any("al/ti" in _clean_cell(c).lower().replace(" ", "") for c in r):
-            header_idx = i
-            break
-    if header_idx is None:
-        return {}
-    header = [_clean_cell(c) for c in rows[header_idx]]
-    out: Dict[str, Dict[str, Optional[float]]] = {}
-    for r in rows[header_idx + 1:]:
-        if not r:
-            continue
-        name = _clean_cell(r[0])
-        if not name or name.lower() in ("alloy", "alloy at %"):
-            continue
-        entry: Dict[str, Optional[float]] = {}
-        for i, val in enumerate(r[1:], start=1):
-            if i < len(header):
-                entry[header[i]] = _parse_numeric(val)
-        if "Al/Ti" in header and entry.get("Al/Ti") is None and entry.get("Al") is None:
-            break
-        out[name] = entry
-    return out
-
-
-_ALLOY_NAME_RE = re.compile(r"^(?:[VL]\d{2}|A718(?:Plus)?|Waspaloy|RU_.*)$")
-
-
-def _split_fused_row(row: List[str], known_names: set) -> List[List[str]]:
-    """Split fused rows from MinerU output."""
-    if not row:
-        return [row]
-    first = _clean_cell(row[0])
-    tokens = first.split()
-    valid = [t for t in tokens if t in known_names or _ALLOY_NAME_RE.match(t)]
-    if len(valid) < 2:
-        return [row]
-    n = len(valid)
-    out = [[] for _ in range(n)]
-    for cell in row:
-        parts = _clean_cell(cell).split()
-        parts = parts + [""] * (n - len(parts)) if len(parts) < n else parts[:n]
-        for i in range(n):
-            out[i].append(parts[i])
-    for i in range(n):
-        out[i][0] = valid[i]
-    return out
-
-
-def _clean_n_phase_remark(s: str) -> Optional[str]:
-    """Clean n-phase remarks."""
-    s = _clean_cell(s)
-    if not s:
+    if val is None:
         return None
-    low = s.lower()
-    if low.startswith(("from ", "phase ", "stable ", "aging ")):
-        return None
-    if s.endswith(","):
-        return None
-    half = len(s) // 2
-    if half > 4 and s[:half].strip() == s[half:].strip():
-        s = s[:half].strip()
-    tokens = s.split()
-    if len(tokens) >= 4 and tokens[: len(tokens) // 2] == tokens[len(tokens) // 2:]:
-        s = " ".join(tokens[: len(tokens) // 2])
-    return s or None
 
+    val_str = str(val).strip().replace(',', '.')
 
-def _build_solvus(items: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
-    """Build solvus data from tables."""
-    known_names: set = set()
-    for rows in _find_composition_tables(items):
-        for r in rows:
-            if r:
-                nm = _clean_cell(r[0])
-                if nm and _ALLOY_NAME_RE.match(nm):
-                    known_names.add(nm)
+    # Убираем единицы измерения для диапазонов
+    val_str = re.sub(r'\s*(мм|mm|cm|м|m|км|km|МПа|MPa|кгс|°C|°F|K|град|°)$', '', val_str, flags=re.IGNORECASE)
 
-    out: Dict[str, Dict[str, Any]] = {}
-    for it in items:
-        if it.get("type") != "table":
-            continue
-        rows = _parse_html_table(it.get("table_body", ""))
-        header_idx = None
-        for i, r in enumerate(rows):
-            joined_lower = " ".join(_clean_cell(c).lower() for c in r)
-            joined_orig = " ".join(r)
-            if "10hv" in joined_lower and ("δ-solv" in joined_orig.lower() or "γ" in joined_orig or "d-solv" in joined_lower):
-                header_idx = i
-                break
-        if header_idx is None:
-            continue
+    # Уже число
+    try:
+        f = float(val_str)
+        if f <= 0:
+            return None
+        return {"min": round(f, 6), "max": round(f, 6)}
+    except ValueError:
+        pass
 
-        for r in rows[header_idx + 1:]:
-            if not r or not any(_clean_cell(c) for c in r):
-                continue
-            for sub in _split_fused_row(r, known_names):
-                name = _clean_cell(sub[0])
-                if not name or not _ALLOY_NAME_RE.match(name):
-                    continue
-                def g(i):
-                    return _clean_cell(sub[i]) if i < len(sub) else ""
-                remark = g(5) or None
-                if remark:
-                    remark = _clean_n_phase_remark(remark)
-                entry = {
-                    "delta_solvus_C": _parse_numeric(g(1)),
-                    "gamma_prime_solvus_C": _parse_numeric(g(2)),
-                    "delta_T_K": _parse_numeric(g(3)),
-                    "hardness_10HV": _parse_numeric(g(4)),
-                    "n_phase_remark": remark,
-                }
-                prev = out.get(name)
-                if prev and sum(v is not None for v in entry.values()) < sum(v is not None for v in prev.values()):
-                    continue
-                out[name] = entry
-    return out
+    # Диапазон "5.0-5.5", "5.0÷5.5", "5.0–5.5"
+    range_match = re.match(r'^\s*([\d.]+)\s*[-–÷~]\s*([\d.]+)\s*$', val_str)
+    if range_match:
+        a, b = float(range_match.group(1)), float(range_match.group(2))
+        if a <= 0 and b <= 0:
+            return None
+        return {"min": round(min(a, b), 6), "max": round(max(a, b), 6)}
 
+    # "<0.5" или "< 0.002" → [0, верхняя граница]
+    lt_match = re.match(r'^<\s*([\d.]+)$', val_str)
+    if lt_match:
+        upper = float(lt_match.group(1))
+        return {"min": 0.0, "max": round(upper, 6)}
 
-def _build_mechanical_a780(items: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
-    """Build mechanical properties from Table 8."""
-    rows = _find_mechanical_a780_table(items)
-    if not rows:
-        return {}
-    out: Dict[str, Dict[str, Any]] = {}
-    temps = [20, 650, 700, 750]
-    cols_per_temp = ["Rp0.2_MPa", "Rm_MPa", "A5_pct", "Z_pct"]
-    for r in rows:
-        if not r:
-            continue
-        first = _clean_cell(r[0])
-        if not first:
-            continue
-        if not (first.isdigit() or first.lower().startswith("a718")):
-            continue
-        vals = [_parse_numeric(c) for c in r[1:]]
-        entry: Dict[str, Any] = {}
-        for ti, temp in enumerate(temps):
-            for ci, col in enumerate(cols_per_temp):
-                idx = ti * 4 + ci
-                if idx < len(vals):
-                    entry[f"{col}_at_{temp}C"] = vals[idx]
-        alloy_key = f"Batch {first}" if first.isdigit() else first
-        if first.isdigit():
-            entry["material_family"] = "A780 (VDM Alloy 780 Premium)"
-        else:
-            entry["material_family"] = "A718"
-        out[alloy_key] = entry
-    return out
+    # "≤0.02" → [0, 0.02]
+    le_match = re.match(r'^≤\s*([\d.]+)$', val_str)
+    if le_match:
+        upper = float(le_match.group(1))
+        return {"min": 0.0, "max": round(upper, 6)}
 
+    # ">0.5" → [0.5, 100]
+    gt_match = re.match(r'^>\s*([\d.]+)$', val_str)
+    if gt_match:
+        lower = float(gt_match.group(1))
+        return {"min": round(lower, 6), "max": 100.0}
 
-# ---------------------------------------------------------------------------
-# MCP Tools (public API)
-# ---------------------------------------------------------------------------
-
-@mcp.tool()
-def list_all_patents() -> List[str]:
-    """List available patent folder names under ./patents/."""
-    if not PATENTS_DIR.exists():
-        return []
-    return sorted(p.name for p in PATENTS_DIR.iterdir() if p.is_dir())
-
-
-@mcp.tool()
-def get_patent_metadata(patent_id: str) -> Dict[str, Any]:
-    """Return cover-page metadata for a patent."""
-    folder = _resolve_patent_dir(patent_id)
-    if isinstance(folder, dict):
-        return folder
-    
-    items = _load_content_list(folder)
-    md_text = _load_markdown(folder)
-    md = _extract_metadata(items, md_text)
-    md["patent_id"] = patent_id
-    return md
-
-
-@mcp.tool()
-def list_alloys(patent_id: str) -> Dict[str, Any]:
-    """Return the list of alloys found in the patent and a short summary."""
-    folder = _resolve_patent_dir(patent_id)
-    if isinstance(folder, dict):
-        return folder
-    
-    items = _load_content_list(folder)
-    md_text = _load_markdown(folder)
-    
-    wt = _build_composition_wt(items, md_text)
-    at = _build_composition_at(items)
-    solvus = _build_solvus(items)
-    mech = _build_mechanical_a780(items)
-    
-    # Also add mechanical properties from markdown for Russian patents
-    if md_text and not mech:
-        ru_mech = _parse_mechanical_properties_ru(md_text)
-        if ru_mech:
-            for alloy_name, props in ru_mech.items():
-                mech[alloy_name] = props
-    
-    alloys = sorted(set(wt.keys()) | set(at.keys()) | set(solvus.keys()) | set(mech.keys()))
-    
-    return {
-        "patent_id": patent_id,
-        "alloys": alloys,
-        "alloy_count": len(alloys),
-        "tables_found": {
-            "composition_wt_tables": sum(1 for _ in _find_composition_tables(items)),
-            "composition_at": bool(at),
-            "solvus": bool(solvus),
-            "mechanical_a780": bool(mech),
-            "markdown_fallback": bool(md_text and wt and not _find_composition_tables(items))
-        },
-        "mechanical_batches": sorted(mech.keys()) if mech else [],
-    }
-
-
-@mcp.tool()
-def extract_alloy_row(patent_id: str, alloy_name: str) -> Dict[str, Any]:
-    """Return a single, structured dataset row for one alloy in a patent."""
-    folder = _resolve_patent_dir(patent_id)
-    if isinstance(folder, dict):
-        return folder
-    
-    items = _load_content_list(folder)
-    md_text = _load_markdown(folder)
-
-    md = _extract_metadata(items, md_text)
-    wt_all = _build_composition_wt(items, md_text)
-    at_all = _build_composition_at(items)
-    solvus_all = _build_solvus(items)
-    mech_all = _build_mechanical_a780(items)
-    
-    # Add Russian mechanical properties if available
-    if md_text and not mech_all:
-        ru_mech = _parse_mechanical_properties_ru(md_text)
-        if ru_mech:
-            mech_all.update(ru_mech)
-
-    wt = wt_all.get(alloy_name, {})
-    at = at_all.get(alloy_name, {})
-    solvus = solvus_all.get(alloy_name, {})
-    mech = mech_all.get(alloy_name, {})
-
-    if not (wt or at or solvus or mech):
-        return {
-            "error": f"Alloy '{alloy_name}' not found in patent '{patent_id}'",
-            "available_alloys": sorted(set(wt_all) | set(at_all) | set(solvus_all) | set(mech_all)),
-        }
-
-    process = _extract_process_hints(items)
-
-    # classify role
-    ref_alloys = {"A718", "A718Plus", "Waspaloy"}
-    role = "reference" if alloy_name in ref_alloys else "test" if re.match(r"^[VL]\d+$", alloy_name) else "batch"
-    
-    if alloy_name.startswith("RU_") or alloy_name in ["proposed_alloy", "prototype"]:
-        role = "composition_only"
-
-    row = {
-        "patent_id": patent_id,
-        "patent_number": md.get("patent_number"),
-        "title": md.get("title"),
-        "authors": md.get("authors"),
-        "applicant": md.get("applicant"),
-        "country": md.get("country"),
-        "filing_date": md.get("filing_date"),
-        "publication_date": md.get("publication_date"),
-        "priority_date": md.get("priority_date"),
-        "alloy_name": alloy_name,
-        "alloy_role": role,
-        "material_base": _infer_material_base(wt),
-        "melting_type": process.get("melting_type"),
-        "size": process.get("size"),
-        "composition_wt_pct": wt,
-        "composition_at_pct": at,
-        "delta_solvus_C": solvus.get("delta_solvus_C"),
-        "gamma_prime_solvus_C": solvus.get("gamma_prime_solvus_C"),
-        "delta_T_K": solvus.get("delta_T_K"),
-        "hardness_10HV": solvus.get("hardness_10HV"),
-        "n_phase_remark": solvus.get("n_phase_remark"),
-        "mechanical": mech,
-    }
-    return row
-
-
-@mcp.tool()
-def extract_all_alloy_rows(patent_id: str) -> Dict[str, Any]:
-    """Return ALL dataset rows for a patent at once."""
-    summary = list_alloys(patent_id)
-    if "error" in summary:
-        return summary
-    rows = []
-    for name in summary["alloys"]:
-        r = extract_alloy_row(patent_id, name)
-        if "error" not in r:
-            rows.append(r)
-    return {"patent_id": patent_id, "row_count": len(rows), "rows": rows}
-
-
-# Fixed element order — one column per element, so all patents share the same schema.
-_WT_ELEMENTS = ["Ni", "Fe", "Cr", "Mo", "Ti", "Al", "Nb + Ta", "Nb", "Ta",
-                "Co", "C", "Mn", "P", "S", "Si", "B", "Cu", "Zr", "W", "V",
-                "Mg", "Ca", "N", "O", "Al + Ti", "Ce", "Hf", "Re"]
-_AT_KEYS = ["Al", "Ti", "Co", "Al + Ti", "Al/Ti"]
-_MECH_TEMPS = [20, 650, 700, 750]
-_MECH_COLS = ["Rp0.2_MPa", "Rm_MPa", "A5_pct", "Z_pct"]
-
-
-def _flatten_row(row: Dict[str, Any]) -> Dict[str, Any]:
-    """Flatten a nested alloy row into a single-level dict suitable for CSV."""
-    flat: Dict[str, Any] = {
-        "patent_id": row.get("patent_id"),
-        "patent_number": row.get("patent_number"),
-        "title": row.get("title"),
-        "authors": "; ".join(row.get("authors") or []),
-        "applicant": row.get("applicant"),
-        "country": row.get("country"),
-        "filing_date": row.get("filing_date"),
-        "publication_date": row.get("publication_date"),
-        "priority_date": row.get("priority_date"),
-        "alloy_name": row.get("alloy_name"),
-        "alloy_role": row.get("alloy_role"),
-        "material_base": row.get("material_base"),
-        "melting_type": row.get("melting_type"),
-        "size": row.get("size"),
-    }
-    wt = row.get("composition_wt_pct") or {}
-    for el in _WT_ELEMENTS:
-        if isinstance(wt.get(el), dict):
-            flat[f"wt_{el}"] = wt[el].get('value') if wt[el] else None
-        else:
-            flat[f"wt_{el}"] = wt.get(el)
-    at = row.get("composition_at_pct") or {}
-    for k in _AT_KEYS:
-        flat[f"at_{k}"] = at.get(k)
-    flat["delta_solvus_C"] = row.get("delta_solvus_C")
-    flat["gamma_prime_solvus_C"] = row.get("gamma_prime_solvus_C")
-    flat["delta_T_K"] = row.get("delta_T_K")
-    flat["hardness_10HV"] = row.get("hardness_10HV")
-    flat["n_phase_remark"] = row.get("n_phase_remark")
-    mech = row.get("mechanical") or {}
-    for temp in _MECH_TEMPS:
-        for col in _MECH_COLS:
-            flat[f"{col}_at_{temp}C"] = mech.get(f"{col}_at_{temp}C")
-    flat["mechanical_family"] = mech.get("material_family")
-    flat["UTS_MPa"] = mech.get("UTS_MPa")
-    flat["YS_MPa"] = mech.get("YS_MPa")
-    flat["elongation_pct"] = mech.get("elongation_pct")
-    flat["stress_rupture_100h_MPa"] = mech.get("stress_rupture_100h_MPa")
-    flat["creep_rate"] = mech.get("creep_rate")
-    flat["test_temperature_C"] = mech.get("test_temperature_C")
-    return flat
-
-
-def _write_csv(rows: List[Dict[str, Any]], path: Path) -> Path:
-    """Write flattened rows to CSV, auto-creating the directory."""
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if not rows:
-        path.write_text("", encoding="utf-8")
-        return path
-    fieldnames = list(rows[0].keys())
-    with path.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        for r in rows:
-            writer.writerow(r)
-    return path
-
-
-@mcp.tool()
-def save_patent_csv(patent_id: str, output_filename: Optional[str] = None) -> Dict[str, Any]:
-    """Extract all alloys from ONE patent and write them to a CSV file on disk."""
-    data = extract_all_alloy_rows(patent_id)
-    if "error" in data:
-        return data
-    flat_rows = [_flatten_row(r) for r in data["rows"]]
-
-    fname = output_filename or f"{patent_id}.csv"
-    out_path = Path(fname)
-    if not out_path.is_absolute() and out_path.parent == Path("."):
-        out_path = OUTPUT_DIR / fname
-
-    _write_csv(flat_rows, out_path)
-    cols = list(flat_rows[0].keys()) if flat_rows else []
-    return {
-        "csv_path": str(out_path.resolve()),
-        "row_count": len(flat_rows),
-        "columns_count": len(cols),
-        "columns": cols,
-    }
-
-
-@mcp.tool()
-def save_all_patents_csv(output_filename: str = "all_patents.csv") -> Dict[str, Any]:
-    """Extract alloys from ALL patents in ./patents/ and write a single combined CSV."""
-    patents = list_all_patents()
-    all_flat: List[Dict[str, Any]] = []
-    errors: List[Dict[str, str]] = []
-    for pid in patents:
-        data = extract_all_alloy_rows(pid)
-        if "error" in data:
-            errors.append({"patent_id": pid, "error": data["error"]})
-            continue
-        for r in data["rows"]:
-            all_flat.append(_flatten_row(r))
-
-    out_path = Path(output_filename)
-    if not out_path.is_absolute() and out_path.parent == Path("."):
-        out_path = OUTPUT_DIR / output_filename
-
-    _write_csv(all_flat, out_path)
-    return {
-        "csv_path": str(out_path.resolve()),
-        "row_count": len(all_flat),
-        "patent_count": len(patents) - len(errors),
-        "errors": errors,
-    }
-
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
-def _resolve_patent_dir(patent_id: str):
-    if not PATENTS_DIR.exists():
-        return {"error": f"Directory '{PATENTS_DIR}' not found"}
-    for p in PATENTS_DIR.iterdir():
-        if p.is_dir() and (p.name == patent_id or patent_id in p.name):
-            return p
-    return {"error": f"Patent '{patent_id}' not found"}
-
-
-def _infer_material_base(wt: Dict[str, Any]) -> Optional[str]:
-    """Rough classification: nickel-base / iron-base / cobalt-base from wt%."""
-    if not wt:
-        return None
-    # Handle dict values
-    if isinstance(wt.get("Ni"), dict):
-        ni_val = wt["Ni"].get('value') if wt["Ni"] else None
-        co_val = wt.get("Co", {}).get('value') if isinstance(wt.get("Co"), dict) else wt.get("Co")
-    else:
-        ni_val = wt.get("Ni")
-        co_val = wt.get("Co")
-    
-    if ni_val == "rest" or (isinstance(ni_val, (int, float)) and ni_val > 50):
-        return "nickel-base"
-    if co_val and isinstance(co_val, (int, float)) and co_val >= 10:
-        return "cobalt-base"
-    if isinstance(wt.get("Fe"), (int, float)) and wt["Fe"] > 50:
-        return "iron-base"
     return None
 
 
-_MELTING_RE = re.compile(
-    r"(VIM\s*/\s*ESR\s*/\s*VAR|VIM/ESR/VAR|VAR|VIM|ESR|vacuum\s+arc|triple-?melt|double-?melt)",
-    re.I,
-)
-_SIZE_RE = re.compile(r"diameter\s+of\s+(\d+\s*mm)", re.I)
+# ===========================================================================
+# LLM ПРОМПТ
+# ===========================================================================
+
+def get_analysis_prompt(patent_text: str, patent_folder: str, alloy_category: str) -> str:
+    text = patent_text[:25000]
+
+    return f"""Ты — эксперт-патентовед и материаловед с 20-летним опытом. Извлеки МАКСИМАЛЬНО ПОЛНЫЕ данные о сплаве из патента.
+
+ПАПКА ПАТЕНТА: {patent_folder}
+КАТЕГОРИЯ СПЛАВА: {alloy_category}
+
+ТЕКСТ ПАТЕНТА (первые 25000 символов):
+{text}
+
+=============================================================================
+ВЕРНИ ТОЛЬКО JSON-ОБЪЕКТ СО СЛЕДУЮЩЕЙ СТРУКТУРОЙ:
+=============================================================================
+
+{{
+  "patent_number": "BY0000006232C1",
+  "alloy_type": "nickel_alloy",
+  "composition": {{
+    "ni": {{"min": 60.0, "max": 75.0}},
+    "cr": {{"min": 15.0, "max": 25.0}},
+    "fe": {{"min": 0.0, "max": 5.0}}
+  }},
+  "mechanical_properties": {{
+    "sigma_u": {{"min": 750, "max": 850}},
+    "sigma_y": {{"min": 600, "max": 700}},
+    "elongation": {{"min": 12, "max": 18}},
+    "hardness": {{"min": 280, "max": 320, "unit": "HB"}}
+  }},
+  "heat_treatment": {{
+    "type": "solution_aging",
+    "solution_temp": 1100,
+    "solution_time": {{"min": 1, "max": 2, "unit": "hours"}},
+    "aging_temp": 800,
+    "aging_time": {{"min": 8, "max": 16, "unit": "hours"}},
+    "cooling": "air"
+  }},
+  "application": "turbine_blades",
+  "operating_temperature": {{"min": 800, "max": 950}}
+}}
+
+=============================================================================
+ДЕТАЛЬНЫЕ ПРАВИЛА ИЗВЛЕЧЕНИЯ:
+=============================================================================
+
+1. **ОПРЕДЕЛЕНИЕ ТИПА ДОКУМЕНТА:**
+   - Если патент НЕ о сплаве → верни {{}}
+
+2. **COMPOSITION:**
+   - Ищи ВСЕ таблицы с элементами и процентами
+   - Формат: "element": {{"min": float, "max": float}}
+   - Сумма элементов должна быть 100% (±1%)
+   - Если элемент не указан, НЕ включай его в composition
+
+3. **MECHANICAL PROPERTIES:**
+   - sigma_u: Rm, UTS, tensile strength, σв, предел прочности (МПа)
+   - sigma_y: Rp0.2, YS, yield strength, σ0.2, предел текучести (МПа)
+   - elongation: A, δ, elongation, удлинение (%)
+   - hardness: HB, HRC, HV, твердость
+   - Если свойства не найдены, НЕ включай mechanical_properties в ответ
+
+4. **HEAT TREATMENT:**
+   - type: solution_aging, annealing, quenching, tempering
+   - solution_temp, aging_temp: температура в °C
+   - solution_time, aging_time: время в часах
+   - cooling: water, oil, air, furnace
+   - Если данные не найдены, НЕ включай heat_treatment в ответ
+
+5. **APPLICATION:** применение сплава (turbine_blades, discs, shafts и т.д.)
+
+6. **OPERATING TEMPERATURE:** рабочая температура в °C
+
+=============================================================================
+ВАЖНО:
+- Если данных нет - НЕ включай поле в ответ
+- Не используй markdown, только JSON
+=============================================================================
+
+ВЕРНИ ТОЛЬКО JSON-ОБЪЕКТ, БЕЗ ПОЯСНЕНИЙ!
+"""
 
 
-def _extract_process_hints(items: List[Dict[str, Any]]) -> Dict[str, Optional[str]]:
-    texts = [it.get("text", "") for it in items if it.get("type") == "text"]
-    joined = " ".join(texts)
-    melt = None
-    m = _MELTING_RE.search(joined)
-    if m:
-        melt = m.group(1)
-    size = None
-    m = _SIZE_RE.search(joined)
-    if m:
-        size = f"diameter {m.group(1)}"
-    return {"melting_type": melt, "size": size}
+async def call_llm_with_retry(prompt: str) -> Optional[Dict]:
+    client = get_client()
+    for attempt in range(MAX_RETRIES):
+        async with _LLM_SEMAPHORE:
+            try:
+                response = await client.chat.completions.create(
+                    model="deepseek-chat",
+                    messages=[
+                        {"role": "system",
+                         "content": "Ты эксперт-патентовед. Отвечай только валидным JSON-объектом, без пояснений. Если патент не о сплаве, верни {}. Если данные отсутствуют, не включай соответствующие поля в ответ."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.1,
+                    max_tokens=4000,
+                )
+                result_text = response.choices[0].message.content.strip()
+                result_text = re.sub(r'^```json\s*', '', result_text)
+                result_text = re.sub(r'^```\s*', '', result_text)
+                result_text = re.sub(r'\s*```$', '', result_text)
+
+                parsed = json.loads(result_text)
+
+                if parsed == {}:
+                    return None
+                return parsed
+            except json.JSONDecodeError as e:
+                print(f"   ⚠️ Попытка {attempt + 1}/{MAX_RETRIES}: Невалидный JSON: {e}")
+                if attempt < MAX_RETRIES - 1:
+                    await asyncio.sleep(RETRY_DELAY * (attempt + 1))
+            except RateLimitError:
+                print(f"   ⏳ Попытка {attempt + 1}/{MAX_RETRIES}: Rate limit...")
+                await asyncio.sleep(RETRY_DELAY * (attempt + 1) * 2)
+            except APIError as e:
+                print(f"   ⚠️ Попытка {attempt + 1}/{MAX_RETRIES}: API ошибка: {e}")
+                if attempt < MAX_RETRIES - 1:
+                    await asyncio.sleep(RETRY_DELAY * (attempt + 1))
+            except Exception as e:
+                print(f"   ❌ Попытка {attempt + 1}/{MAX_RETRIES}: {type(e).__name__}: {e}")
+                if attempt < MAX_RETRIES - 1:
+                    await asyncio.sleep(RETRY_DELAY)
+    return None
+
+
+# ===========================================================================
+# ОЧИСТКА ЗАПИСИ (С СОХРАНЕНИЕМ СТРОГОЙ СТРУКТУРЫ)
+# ===========================================================================
+
+def normalize_composition(comp: Dict) -> Dict:
+    """Нормализует состав, чтобы сумма была 100%"""
+    if not comp:
+        return {}
+
+    clean_comp = {}
+    for element, value in comp.items():
+        if isinstance(value, dict) and "min" in value and "max" in value:
+            try:
+                mn, mx = float(value["min"]), float(value["max"])
+                if mx > 0:
+                    clean_comp[element.lower()] = {"min": max(0.0, mn), "max": mx}
+            except:
+                continue
+        else:
+            parsed = parse_range(value)
+            if parsed:
+                clean_comp[element.lower()] = parsed
+
+    if clean_comp:
+        total_min = sum(v["min"] for v in clean_comp.values())
+        total_max = sum(v["max"] for v in clean_comp.values())
+
+        if total_max < 95 or total_max > 105:
+            rest_elem = None
+            for elem in clean_comp:
+                if elem in ["bal", "rest", "balance", "остальное"]:
+                    rest_elem = elem
+                    break
+
+            if rest_elem:
+                others_min = sum(v["min"] for k, v in clean_comp.items() if k != rest_elem)
+                others_max = sum(v["max"] for k, v in clean_comp.items() if k != rest_elem)
+                clean_comp[rest_elem] = {
+                    "min": max(0.0, 100.0 - others_max),
+                    "max": max(0.0, 100.0 - others_min)
+                }
+
+    return clean_comp
+
+
+def parse_mechanical_properties(props: Dict) -> Optional[Dict]:
+    """Парсит механические свойства"""
+    if not props or not isinstance(props, dict):
+        return None
+
+    clean_props = {}
+
+    if "sigma_u" in props:
+        sigma_u = parse_range(props["sigma_u"])
+        if sigma_u:
+            clean_props["sigma_u"] = sigma_u
+
+    if "sigma_y" in props:
+        sigma_y = parse_range(props["sigma_y"])
+        if sigma_y:
+            clean_props["sigma_y"] = sigma_y
+
+    if "elongation" in props:
+        elong = parse_range(props["elongation"])
+        if elong:
+            clean_props["elongation"] = elong
+
+    if "hardness" in props:
+        hardness = props["hardness"]
+        if isinstance(hardness, dict) and "min" in hardness and "max" in hardness:
+            try:
+                clean_props["hardness"] = {
+                    "min": float(hardness["min"]),
+                    "max": float(hardness["max"]),
+                    "unit": hardness.get("unit", "HB")
+                }
+            except:
+                pass
+        else:
+            parsed = parse_range(hardness)
+            if parsed:
+                clean_props["hardness"] = {**parsed, "unit": "HB"}
+
+    return clean_props if clean_props else None
+
+
+def parse_heat_treatment(ht: Dict) -> Optional[Dict]:
+    """Парсит термическую обработку"""
+    if not ht or not isinstance(ht, dict):
+        return None
+
+    clean_ht = {}
+
+    if "type" in ht and ht["type"]:
+        clean_ht["type"] = str(ht["type"]).lower()
+
+    if "solution_temp" in ht:
+        try:
+            clean_ht["solution_temp"] = float(ht["solution_temp"])
+        except:
+            pass
+
+    if "solution_time" in ht:
+        stime = ht["solution_time"]
+        if isinstance(stime, dict) and "min" in stime and "max" in stime:
+            try:
+                clean_ht["solution_time"] = {
+                    "min": float(stime["min"]),
+                    "max": float(stime["max"]),
+                    "unit": stime.get("unit", "hours")
+                }
+            except:
+                pass
+        else:
+            parsed = parse_range(stime)
+            if parsed:
+                clean_ht["solution_time"] = {**parsed, "unit": "hours"}
+
+    if "aging_temp" in ht:
+        try:
+            clean_ht["aging_temp"] = float(ht["aging_temp"])
+        except:
+            pass
+
+    if "aging_time" in ht:
+        atime = ht["aging_time"]
+        if isinstance(atime, dict) and "min" in atime and "max" in atime:
+            try:
+                clean_ht["aging_time"] = {
+                    "min": float(atime["min"]),
+                    "max": float(atime["max"]),
+                    "unit": atime.get("unit", "hours")
+                }
+            except:
+                pass
+        else:
+            parsed = parse_range(atime)
+            if parsed:
+                clean_ht["aging_time"] = {**parsed, "unit": "hours"}
+
+    if "cooling" in ht and ht["cooling"]:
+        cooling = str(ht["cooling"]).lower()
+        if cooling in ["water", "oil", "air", "furnace"]:
+            clean_ht["cooling"] = cooling
+
+    return clean_ht if clean_ht else None
+
+
+def create_empty_record(patent_number: str, alloy_type: str) -> Dict:
+    """Создает пустую запись со строгой структурой и всеми полями"""
+    return {
+        "patent_number": patent_number,
+        "alloy_type": alloy_type,
+        "composition": {},
+        "mechanical_properties": None,
+        "heat_treatment": None,
+        "application": None,
+        "operating_temperature": None
+    }
+
+
+def clean_record(record: Dict, existing_ids: Optional[Set] = None) -> Optional[Dict]:
+    """Очищает и нормализует запись от LLM, сохраняя строгую структуру"""
+    if not record or record == {}:
+        return None
+
+    record_id = record.get("patent_number") or ""
+    if not record_id:
+        return None
+
+    if existing_ids is None:
+        existing_ids = set()
+    if record_id in existing_ids:
+        counter = 1
+        new_id = f"{record_id}_{counter}"
+        while new_id in existing_ids:
+            counter += 1
+            new_id = f"{record_id}_{counter}"
+        record_id = new_id
+    existing_ids.add(record_id)
+
+    alloy_type = record.get("alloy_type") or ""
+
+    # Создаем пустую запись со строгой структурой
+    result = create_empty_record(record_id, alloy_type)
+
+    # Заполняем composition если есть
+    comp = record.get("composition") or {}
+    clean_comp = normalize_composition(comp)
+    if clean_comp:
+        result["composition"] = clean_comp
+
+    # Заполняем mechanical_properties если есть
+    mechanical_properties = record.get("mechanical_properties")
+    clean_mechanical = parse_mechanical_properties(mechanical_properties)
+    if clean_mechanical:
+        result["mechanical_properties"] = clean_mechanical
+
+    # Заполняем heat_treatment если есть
+    heat_treatment = record.get("heat_treatment")
+    clean_heat_treatment = parse_heat_treatment(heat_treatment)
+    if clean_heat_treatment:
+        result["heat_treatment"] = clean_heat_treatment
+
+    # Заполняем application если есть
+    application = record.get("application")
+    if application and isinstance(application, str):
+        result["application"] = application.strip()
+
+    # Заполняем operating_temperature если есть
+    operating_temperature = record.get("operating_temperature")
+    clean_operating_temp = parse_range(operating_temperature) if operating_temperature else None
+    if clean_operating_temp:
+        result["operating_temperature"] = clean_operating_temp
+
+    # Если нет состава - это не сплав
+    if not result["composition"]:
+        return None
+
+    return result
+
+
+def print_extraction_result(clean: Dict):
+    """Выводит результат извлечения"""
+    print(f"   ✅ Добавлено: {clean.get('patent_number')}")
+
+    comp = clean.get('composition', {})
+    if comp:
+        comp_preview = {k: f"{v['min']:.1f}-{v['max']:.1f}" for k, v in list(comp.items())[:4]}
+        print(f"   📊 Состав: {comp_preview}")
+        if len(comp) > 4:
+            print(f"      ... и еще {len(comp) - 4} элементов")
+    else:
+        print(f"   📊 Состав: Нет данных")
+
+    mech = clean.get('mechanical_properties')
+    if mech:
+        props = []
+        if mech.get('sigma_u'):
+            props.append(f"σu={mech['sigma_u']['min']:.0f}-{mech['sigma_u']['max']:.0f}МПа")
+        if mech.get('sigma_y'):
+            props.append(f"σy={mech['sigma_y']['min']:.0f}-{mech['sigma_y']['max']:.0f}МПа")
+        if mech.get('elongation'):
+            props.append(f"δ={mech['elongation']['min']:.0f}-{mech['elongation']['max']:.0f}%")
+        if mech.get('hardness'):
+            h = mech['hardness']
+            props.append(f"HB={h['min']:.0f}-{h['max']:.0f}")
+        if props:
+            print(f"   💪 Мех.свойства: {', '.join(props)}")
+    else:
+        print(f"   💪 Мех.свойства: Нет данных")
+
+    ht = clean.get('heat_treatment')
+    if ht:
+        ht_str = []
+        if ht.get('type'):
+            ht_str.append(ht['type'])
+        if ht.get('solution_temp'):
+            ht_str.append(f"закалка {ht['solution_temp']:.0f}°C")
+        if ht.get('aging_temp'):
+            ht_str.append(f"старение {ht['aging_temp']:.0f}°C")
+        if ht_str:
+            print(f"   🔥 Термообработка: {', '.join(ht_str)}")
+    else:
+        print(f"   🔥 Термообработка: Нет данных")
+
+    app = clean.get('application')
+    if app:
+        print(f"   🎯 Применение: {app}")
+    else:
+        print(f"   🎯 Применение: Нет данных")
+
+    op_temp = clean.get('operating_temperature')
+    if op_temp:
+        print(f"   🌡️  Раб.температура: {op_temp['min']:.0f}-{op_temp['max']:.0f}°C")
+    else:
+        print(f"   🌡️  Раб.температура: Нет данных")
+
+
+# ===========================================================================
+# JSON / PROGRESS
+# ===========================================================================
+
+def load_json_dataset() -> List[Dict]:
+    if OUTPUT_JSON.exists():
+        try:
+            with open(OUTPUT_JSON, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                return [d for d in data if d and d.get("composition")]
+        except Exception as e:
+            print(f"⚠️ Ошибка чтения {OUTPUT_JSON}: {e}")
+    return []
+
+
+def save_json_dataset(data: List[Dict]):
+    # Сохраняем все записи, даже с пустым composition (хотя такие не должны попадать)
+    with open(OUTPUT_JSON, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def load_progress() -> dict:
+    if PROGRESS_JSON.exists():
+        try:
+            with open(PROGRESS_JSON, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except:
+            pass
+    return {"processed_folders": [], "folder_categories": {}}
+
+
+def save_progress(processed_folders: list, folder_categories: dict):
+    with open(PROGRESS_JSON, 'w', encoding='utf-8') as f:
+        json.dump({
+            "processed_folders": processed_folders,
+            "folder_categories": folder_categories
+        }, f, ensure_ascii=False, indent=2)
+
+
+# ===========================================================================
+# ОБРАБОТКА ОДНОГО ПАТЕНТА
+# ===========================================================================
+
+async def process_single_patent(patent_path: Path, progress_id: str, folder_category: str,
+                                dataset: List[Dict], processed_folders: list,
+                                folder_categories: dict) -> int:
+    try:
+        print(f"\n📖 {progress_id} [{folder_category}]")
+
+        patent_text, files_read = read_patent_files(patent_path)
+        if not patent_text or len(patent_text) < 100:
+            print(f"   ⚠️ Нет текстовых данных")
+            if progress_id not in processed_folders:
+                processed_folders.append(progress_id)
+                folder_categories[progress_id] = folder_category
+                save_progress(processed_folders, folder_categories)
+            return 0
+
+        print(f"   📄 Файлов: {len(files_read)} | Символов: {len(patent_text)}")
+
+        alloy_category = folder_category
+        for key in ALLOY_CATEGORIES.keys():
+            if key in progress_id.lower():
+                alloy_category = key
+                break
+
+        prompt = get_analysis_prompt(patent_text, progress_id, alloy_category)
+        result = await call_llm_with_retry(prompt)
+
+        if result is None:
+            print(f"   ⚠️ Не является сплавом или пустой результат")
+            if progress_id not in processed_folders:
+                processed_folders.append(progress_id)
+                folder_categories[progress_id] = folder_category
+                save_progress(processed_folders, folder_categories)
+            return 0
+
+        current_ids = {r.get("patent_number") for r in dataset if r.get("patent_number")}
+        clean = clean_record(result, existing_ids=current_ids)
+
+        if clean:
+            if not clean.get("alloy_type") and folder_category:
+                clean["alloy_type"] = folder_category
+
+            dataset.append(clean)
+            save_json_dataset(dataset)
+            print_extraction_result(clean)
+        else:
+            print(f"   ⚠️ Нет валидных данных (возможно, не сплав)")
+
+        if progress_id not in processed_folders:
+            processed_folders.append(progress_id)
+            folder_categories[progress_id] = folder_category
+            save_progress(processed_folders, folder_categories)
+
+        return 1 if clean else 0
+
+    except Exception as e:
+        print(f"   ❌ КРИТИЧЕСКАЯ ОШИБКА при обработке {progress_id}: {e}")
+        # Отмечаем как обработанный, чтобы не пытаться снова
+        if progress_id not in processed_folders:
+            processed_folders.append(progress_id)
+            folder_categories[progress_id] = folder_category
+            save_progress(processed_folders, folder_categories)
+        return 0
+
+
+# ===========================================================================
+# ОБЛАКО (ЯНДЕКС.ДИСК) - С ОБРАБОТКОЙ ОШИБОК
+# ===========================================================================
+
+async def process_yandex_patents(dataset: List[Dict], processed_folders: list, folder_categories: dict) -> int:
+    yandex_token = os.getenv("YANDEX_DISK_TOKEN")
+    if not yandex_token:
+        print("\n⚠️ YANDEX_DISK_TOKEN не найден — пропускаем облачные патенты")
+        return 0
+
+    yandex_path = os.getenv("YANDEX_DISK_PATH", "disk:/patents_alloys")
+    yandex_path = yandex_path.replace("https://", "").replace("disk.yandex.ru/client/disk/", "disk:/")
+
+    print(f"\n{'=' * 70}")
+    print(f"☁️  ЯНДЕКС.ДИСК: {yandex_path}")
+    print(f"{'=' * 70}")
+
+    yd = YandexDiskClient(yandex_token)
+    try:
+        alloy_folders, files = await yd.list_folder(yandex_path)
+    except Exception as e:
+        print(f"❌ Не удалось подключиться к Яндекс.Диску: {e}")
+        await yd.close()
+        return 0
+
+    print(f"   📂 Категорий сплавов: {len(alloy_folders)}")
+
+    total_added = 0
+
+    for idx, alloy_folder in enumerate(alloy_folders, 1):
+        folder_name = alloy_folder["name"]
+        disk_path = alloy_folder["path"]
+
+        # Очищаем имя папки от недопустимых символов
+        folder_name_clean = clean_filename(folder_name)
+
+        category = "unknown"
+        for cat in ALLOY_CATEGORIES.keys():
+            if cat in folder_name_clean.lower():
+                category = cat
+                break
+
+        print(f"\n{'=' * 60}")
+        print(f"📁 [{idx}/{len(alloy_folders)}] Категория: {folder_name_clean} -> {category}")
+        print(f"{'=' * 60}")
+
+        try:
+            patent_folders, patent_files = await yd.list_folder(disk_path)
+        except Exception as e:
+            print(f"   ❌ Ошибка чтения папки {folder_name_clean}: {e}")
+            continue
+
+        if not patent_folders:
+            print(f"   ⚠️ Нет патентов в категории {folder_name_clean}")
+            continue
+
+        print(f"   📄 Патентов в категории: {len(patent_folders)}")
+
+        for patent_idx, patent_folder in enumerate(patent_folders, 1):
+            patent_name = patent_folder["name"]
+            # Очищаем имя патента от недопустимых символов
+            patent_name_clean = clean_filename(patent_name)
+            patent_disk_path = patent_folder["path"]
+            progress_id = f"yd_{folder_name_clean}_{patent_name_clean}"
+
+            if progress_id in processed_folders:
+                print(f"\n⏭️  [{patent_idx}/{len(patent_folders)}] {patent_name_clean} — уже обработано")
+                continue
+
+            print(f"\n📄 [{patent_idx}/{len(patent_folders)}] Патент: {patent_name_clean}")
+
+            local_patent_folder = CLOUD_DIR / folder_name_clean / patent_name_clean
+
+            # Пытаемся создать папку, если ошибка - пропускаем
+            try:
+                if local_patent_folder.exists():
+                    shutil.rmtree(local_patent_folder)
+                local_patent_folder.mkdir(parents=True, exist_ok=True)
+            except OSError as e:
+                print(f"   ❌ Ошибка создания папки {local_patent_folder}: {e}")
+                print(f"   ⚠️ Пропускаем патент {patent_name_clean}")
+                # Отмечаем как обработанный, чтобы не пытаться снова
+                if progress_id not in processed_folders:
+                    processed_folders.append(progress_id)
+                    folder_categories[progress_id] = category
+                    save_progress(processed_folders, folder_categories)
+                continue
+
+            try:
+                downloaded = await yd.download_patent_folder(patent_disk_path, local_patent_folder)
+            except Exception as e:
+                print(f"   ❌ Ошибка скачивания патента {patent_name_clean}: {e}")
+                # Отмечаем как обработанный, чтобы не пытаться снова
+                if progress_id not in processed_folders:
+                    processed_folders.append(progress_id)
+                    folder_categories[progress_id] = category
+                    save_progress(processed_folders, folder_categories)
+                continue
+
+            if not downloaded:
+                print(f"   ⚠️ Нет файлов для скачивания")
+                if progress_id not in processed_folders:
+                    processed_folders.append(progress_id)
+                    folder_categories[progress_id] = category
+                    save_progress(processed_folders, folder_categories)
+                continue
+
+            print(f"   📥 Скачано: {len(downloaded)} файлов")
+
+            try:
+                added = await process_single_patent(local_patent_folder, progress_id, category,
+                                                    dataset, processed_folders, folder_categories)
+                total_added += added
+            except Exception as e:
+                print(f"   ❌ Ошибка обработки патента {patent_name_clean}: {e}")
+                # Отмечаем как обработанный, чтобы не пытаться снова
+                if progress_id not in processed_folders:
+                    processed_folders.append(progress_id)
+                    folder_categories[progress_id] = category
+                    save_progress(processed_folders, folder_categories)
+
+            await asyncio.sleep(1)
+
+    await yd.close()
+    return total_added
+
+
+# ===========================================================================
+# ЛОКАЛЬНЫЕ ПАТЕНТЫ - С ОБРАБОТКОЙ ОШИБОК
+# ===========================================================================
+
+async def process_local_patents(dataset: List[Dict], processed_folders: list, folder_categories: dict) -> int:
+    if not PATENTS_DIR.exists():
+        print(f"\n⚠️ Локальная папка {PATENTS_DIR} не найдена")
+        return 0
+
+    category_folders = [p for p in PATENTS_DIR.iterdir() if p.is_dir()]
+    category_folders.sort()
+
+    print(f"\n{'=' * 70}")
+    print(f"💻 ЛОКАЛЬНЫЕ ПАТЕНТЫ: {len(category_folders)} категорий")
+    print(f"{'=' * 70}")
+
+    total_added = 0
+
+    for cat_idx, cat_path in enumerate(category_folders, 1):
+        category_name = cat_path.name
+        alloy_category = "unknown"
+        for cat in ALLOY_CATEGORIES.keys():
+            if cat in category_name.lower():
+                alloy_category = cat
+                break
+
+        print(f"\n{'=' * 60}")
+        print(f"📁 [{cat_idx}/{len(category_folders)}] Категория: {category_name} -> {alloy_category}")
+        print(f"{'=' * 60}")
+
+        try:
+            patent_folders = [p for p in cat_path.iterdir() if p.is_dir()]
+            patent_folders.sort()
+        except Exception as e:
+            print(f"   ❌ Ошибка чтения категории {category_name}: {e}")
+            continue
+
+        if not patent_folders:
+            print(f"   ⚠️ Нет патентов в категории {category_name}")
+            continue
+
+        print(f"   📄 Патентов в категории: {len(patent_folders)}")
+
+        for patent_idx, patent_path in enumerate(patent_folders, 1):
+            patent_name = clean_filename(patent_path.name)
+            progress_id = f"local_{category_name}_{patent_name}"
+
+            if progress_id in processed_folders:
+                print(f"\n⏭️  [{patent_idx}/{len(patent_folders)}] {patent_name} — уже обработано")
+                continue
+
+            print(f"\n📄 [{patent_idx}/{len(patent_folders)}] Патент: {patent_name}")
+
+            try:
+                added = await process_single_patent(patent_path, progress_id, alloy_category,
+                                                    dataset, processed_folders, folder_categories)
+                total_added += added
+            except Exception as e:
+                print(f"   ❌ Ошибка обработки патента {patent_name}: {e}")
+                # Отмечаем как обработанный, чтобы не пытаться снова
+                if progress_id not in processed_folders:
+                    processed_folders.append(progress_id)
+                    folder_categories[progress_id] = alloy_category
+                    save_progress(processed_folders, folder_categories)
+
+            await asyncio.sleep(0.5)
+
+    return total_added
+
+
+# ===========================================================================
+# MAIN
+# ===========================================================================
+
+async def main():
+    print("\n" + "=" * 70)
+    print("🔬 LLM ANALYZER JSON — Сбор данных о сплавах")
+    print(
+        "   Строгая структура: patent_number | alloy_type | composition | mechanical_properties | heat_treatment | application | operating_temperature")
+    print("   null = данные отсутствуют")
+    print("=" * 70)
+
+    dataset = load_json_dataset()
+    progress_data = load_progress()
+    processed_folders = progress_data.get("processed_folders", [])
+    folder_categories = progress_data.get("folder_categories", {})
+
+    print(f"\n📊 Текущий датасет: {len(dataset)} записей")
+    print(f"🔄 Уже обработано патентов: {len(processed_folders)}")
+
+    local_added = await process_local_patents(dataset, processed_folders, folder_categories)
+    cloud_added = await process_yandex_patents(dataset, processed_folders, folder_categories)
+
+    print("\n" + "=" * 70)
+    print("✅ ОБРАБОТКА ЗАВЕРШЕНА")
+    print(f"   Локальных записей добавлено: {local_added}")
+    print(f"   Облачных записей добавлено: {cloud_added}")
+    print(f"   Всего в датасете: {len(dataset)}")
+    print(f"   Файл: {OUTPUT_JSON}")
+
+    if dataset:
+        alloy_types = {}
+        for record in dataset:
+            at = record.get("alloy_type", "unknown")
+            alloy_types[at] = alloy_types.get(at, 0) + 1
+
+        print(f"\n📈 Статистика по типам сплавов:")
+        for at, count in sorted(alloy_types.items(), key=lambda x: x[1], reverse=True):
+            print(f"   {at}: {count}")
+
+        # Статистика по наличию данных
+        total = len(dataset)
+        has_mech = sum(1 for r in dataset if r.get("mechanical_properties"))
+        has_ht = sum(1 for r in dataset if r.get("heat_treatment"))
+        has_app = sum(1 for r in dataset if r.get("application"))
+        has_temp = sum(1 for r in dataset if r.get("operating_temperature"))
+
+        print(f"\n📊 Наличие данных в датасете ({total} записей):")
+        print(f"   Механические свойства: {has_mech} ({has_mech * 100 // total}%)")
+        print(f"   Термическая обработка: {has_ht} ({has_ht * 100 // total}%)")
+        print(f"   Применение: {has_app} ({has_app * 100 // total}%)")
+        print(f"   Рабочая температура: {has_temp} ({has_temp * 100 // total}%)")
+
+        sigmas = []
+        for r in dataset:
+            mech = r.get("mechanical_properties")
+            if mech and mech.get("sigma_u"):
+                sigma_u = mech["sigma_u"]
+                sigmas.append((sigma_u["min"] + sigma_u["max"]) / 2)
+
+        if sigmas:
+            print(f"\n📊 Sigma_u статистика (среднее диапазона):")
+            print(f"   Min: {min(sigmas):.1f} | Max: {max(sigmas):.1f} | Mean: {sum(sigmas) / len(sigmas):.1f}")
 
 
 if __name__ == "__main__":
-    mcp.run(transport="http", host="127.0.0.1", port=3000)
+    asyncio.run(main())
